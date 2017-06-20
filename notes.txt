@@ -1,0 +1,87 @@
+
+story 1 - Attributes
+
+- there are 9 attributes:
+  INT Intelligence
+  REF Reflexes
+  TECH Technical Ability
+  COOL Cool
+  ATTR Attractiveness
+  LUCK Luck
+  MA Movement Allowance
+  BODY Body
+  EMP Empathy
+- there are 3 ways to generate them, but for now we will support 2:
+  - roll 9d10 and assign them
+  - set the point limit and assign them
+  - [roll 9(d8+2), then assign the rolls]
+- calculated attributes
+  - RUN=MA*3
+  - Jump=RUN/4
+  - BTM is a BODY lookup:
+    2   -> 0
+    3-4 -> -1
+    5-7 -> -2
+    8-9 -> -3
+    10+ -> -4
+  - SAVE=BODY
+  - Lift = Body * 40 kg
+
+Implementation
+1. Top of the control is "How", bottom is the details
+2. How is basically
+  - an input field (number only, 40-80 range)
+  - a "Roll" button: rolls 9d10, sets the input to that value
+3. The details section has the 9 attributes (4-4-(1+calculated) layout), each attribute has
+  - short name
+  - label with the current value
+  - a plus and a minus button to set the value
+  - the plus buttons active only if the remaining Characer points are > 0
+
+
+story 2 - Skills
+
+- character has 40 points to distribute amongst a list of 10 skills (one of the being special ability)
+- minimum value is 0, max is 10
+- then the character has INT + REF spill point to distribute amongs any other skill except:
+  - career skills
+  - any other role's special skills
+
+story 3 - Lifepath
+
+- style
+  - roll for all button
+  - select/roll individual items
+- family background
+  - roll for all
+  - select/roll individual items
+  - family rank
+  - parents + [something happened to your parents]
+  - family status + [family tragedy]
+  - childhood env
+  - siblings
+- motivations
+
+------ this is where we are at ---------------------------------
+
+- lifepath
+  - Roll 2D6+16 to determine your character's age, or pick any age 16 or greater - rerolls lifepath
+  - for every year, roll d10:
+    1-3 Big Problems, Big Wins
+    4-6 Friends & Enemies
+    7-8 Romantic Involvement
+    9-10  Nothing Happened That Year
+
+  - option to reroll the whole lifepath
+  - for all year, do the rolls and show the result (with the option of adding notes)
+
+
+----- MINIMUM VIABLE PRODUCT -----------------------------------
+
+
+story 4 - Add login, list of characters page and some server side stuff with it
+story 5 - Equipment
+story 6 - cyber stuff
+
+----- Other notes ---------------------------------------------
+

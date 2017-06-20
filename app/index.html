@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title> Cyberpunk 2020 Character Generator </title>
+    <script src="https://unpkg.com/vue" defer></script>
+    <script src="./data.js" defer></script>
+    <script src="./index.js" defer></script>
+
+  </head>
+  <body>
+    <div id="app">
+      <section class="section">
+        <div class="container">
+          <div class="box">
+            <nav class="nav">
+              <div class="nav-left">
+                <a class="nav-item" @click="showing = 0" :class="{'is-active': showing === 0}"> Stats </a>
+                <a class="nav-item" @click="showing = 1" :class="{'is-active': showing === 1}"> Role and Skills </a>
+                <a class="nav-item" @click="showing = 2" :class="{'is-active': showing === 2}"> Style </a>
+                <a class="nav-item" @click="showing = 3" :class="{'is-active': showing === 3}"> Family </a>
+                <a class="nav-item" @click="showing = 4" :class="{'is-active': showing === 4}"> Motivation </a>
+              </div>
+            </nav>
+            <hr>
+
+            <div v-if="showing === 0">
+              <div class="field is-grouped">
+                  <p class="control">
+                    <spinner label="Character points" :label-width="200" :min="10" :max="90" :step="5"
+                      v-model:value="char.characterPoints">
+                    </spinner>
+                  </p>
+                  <p class="control">
+                    <button type="button" class="button is-info" @click="roll('cp')"> Roll </button>
+                  </p>
+              </div>
+              <hr>
+              <h4 class="title is-4"> Stats </h4>
+              <div class="content columns is-multiline">
+                <div class="column is-one-third-tablet is-one-quarter-desktop" v-for="(s, i) in static.stats" :key="i">
+                  <spinner :label="i" :label-width="80"
+                    :min="1" :max="Math.min(10, char.stats[i] + cpLeft)" :step="1"
+                    v-model:value="char.stats[i]">
+                  </spinner>
+                </div>
+                <div class="column is-one-third-tablet is-one-quarter-desktop">
+                  <spinner label="Run" read-only :label-width="80" :value="run">
+                  </spinner>
+                </div>
+                <div class="column is-one-third-tablet is-one-quarter-desktop">
+                  <spinner label="Leap" read-only :label-width="80" :value="leap">
+                  </spinner>
+                </div>
+                <div class="column is-one-third-tablet is-one-quarter-desktop">
+                  <spinner label="Lift" read-only :label-width="80" :value="lift">
+                  </spinner>
+                </div>
+                <div class="column is-one-third-tablet is-one-quarter-desktop">
+                  <spinner label="Save" read-only :label-width="80" :value="char.stats.BODY">
+                  </spinner>
+                </div>
+                <div class="column is-one-third-tablet is-one-quarter-desktop">
+                  <spinner label="BTM" read-only :label-width="80" :value="btm">
+                  </spinner>
+                </div>
+              </div>
+              <hr>
+              <div><strong>{{cpLeft}}&nbsp;</strong> points remaining </div>
+            </div>
+
+            <div v-if="showing === 1">
+              <h4 class="title is-4"> Role </h4>
+              <div class="field has-addons">
+                <p class="control" v-for="(r, i) in static.roles" :key="i">
+                  <button class="button" :class="{'is-info': char.role === i}" @click="char.role = i">
+                    {{r.name}}
+                  </button>
+                </p>
+              </div>
+              <hr>
+
+              <div class="columns" v-if="typeof char.role !== 'undefined'">
+
+                <div class="column is-half">
+                  <h4 class="title is-4"> Career skills </h4>
+                  <div class="columns">
+                    <div class="column">
+                      <spinner :label="static.roles[char.role].ability" :label-width="200"
+                        :min="1" :max="Math.min(10, char.ability + careerSkillPointsLeft)" v-model:value="char.ability">
+                      </spinner>
+                    </div>
+                  </div>
+                  <div class="columns" v-for="(s, i) in char.careerSkills" :key="s.id">
+                    <div class="column">
+                      <spinner :label="static.skills[s.id].name" :label-width="200"
+                        :max="Math.min(10, char.careerSkills[i].value + careerSkillPointsLeft)"
+                        v-model:value="char.careerSkills[i].value">
+                      </spinner>
+                    </div>
+                  </div>
+                  <div><strong>{{careerSkillPointsLeft}}&nbsp;</strong> points remaining </div>
+                </div>
+
+                <div class="column is-half">
+                  <h4 class="title is-4"> Pickup skills </h4>
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <p class="control">
+                        <span class="select">
+                          <select style="width: 317px;" @change="addPickupSkill">
+                            <option disabled selected value="-1"> Pick a new skill </option>
+                            <option v-for="s in pickupSkillsAvailable" :value="s.id">
+                              [{{s.stat}}] {{s.name}}
+                            </option>
+                          </select>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="columns" v-for="(s, i) in char.pickupSkills" :key="s.id" >
+                    <div class="column">
+                      <spinner :label="static.skills[s.id].name" :label-width="200"
+                        :max="Math.min(10, char.pickupSkills[i].value + pickupSkillPointsLeft)"
+                        v-model:value="char.pickupSkills[i].value">
+                      </spinner>
+                    </div>
+                  </div>
+
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <div class="control">
+                          <button type="button" class="button is-info" @click="removeZeroPickupSkills"> Remove 0 Skills </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div><strong> {{pickupSkillPointsLeft}} &nbsp;</strong> points remaining </div>
+                </div>
+              </div>
+            </div>
+
+            <div v-if="showing === 2">
+              <div class="columns">
+                <div class="column is-7">
+                  <button type="button" class="button is-info is-pulled-right" @click="roll('style')"> Roll all </button>
+                  <h4 class="title is-4"> Style </h4>
+
+                  <div class="field">
+                    <label class="label"> Clothes </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="style.clothes" v-model="char.style.clothes">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.style.clothes" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('style.clothes')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Hair </label>
+                      <p class="control">
+                        <span class="select">
+                          <select id="style.hair" v-model="char.style.hair">
+                            <option disabled selected :value="-1"> Choose </option>
+                            <option v-for="(s, i) in static.style.hair" :value="i">
+                              {{s}}
+                            </option>
+                          </select>
+                        </span>
+                        <button type="button" class="button is-info" @click="roll('style.hair')"> Roll </button>
+                      </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Affectations </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="style.affectations" v-model="char.style.affectations">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.style.affectations" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('style.affectations')"> Roll </button>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="column is-5">
+                  <h4 class="title is-4"> Origins </h4>
+                  <div class="field">
+                    <label class="label"> Origin </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="origin" v-model="char.origin" @change="originChanged">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.origin" :value="i">
+                            {{s.name}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('origin')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field"  v-if="char.origin>=0">
+                    <label class="label"> Language </label>
+                    <div class="field is-grouped">
+                      <p class="control">
+                        <span class="select">
+                          <select id="language" v-model="char.language">
+                            <option disabled selected :value="-1"> Choose </option>
+                            <option v-for="(s, i) in static.origin[char.origin].languages" :value="i">
+                              {{s}}
+                            </option>
+                          </select>
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div v-if="showing === 3">
+              <div class="columns">
+                <div class="column is-7">
+                  <button type="button" class="button is-info is-pulled-right" @click="roll('family')"> Roll all </button>
+                  <h4 class="title is-4"> Family </h4>
+
+                  <div class="field">
+                    <label class="label"> Family Rank </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="family.rank" v-model="char.family.rank">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.family.rank" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('family.rank')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Parents </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="family.parents" v-model="char.family.parents">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.family.parents" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('family.parents')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Family Status </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="family.status" v-model="char.family.status">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.family.status" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('family.status')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Childhood </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="family.childhood" v-model="char.family.childhood">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.family.childhood" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('family.childhood')"> Roll </button>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="column is-5">
+                  <button type="button" class="button is-info is-pulled-right" @click="roll('siblings')"> Roll all </button>
+                  <h4 class="title is-4"> Siblings </h4>
+
+                  <div v-if="char.siblings.length === 0">You are the only child</div>
+                  <div class="content" v-if="char.siblings.length > 0">
+                    <ul>
+                      <li v-for="s in char.siblings"> {{s}} </li>
+                    </ul>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div v-if="showing === 4">
+              <div class="columns">
+                <div class="column is-7">
+
+                  <button type="button" class="button is-info is-pulled-right" @click="roll('motivation')"> Roll all </button>
+                  <h4 class="title is-4"> Motivation </h4>
+
+                  <div class="field">
+                    <label class="label"> Personality </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="motivation.personality" v-model="char.motivation.personality">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.motivation.personality" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('motivation.personality')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Person you value most </label>
+                      <p class="control">
+                        <span class="select">
+                          <select id="motivation.person" v-model="char.motivation.person">
+                            <option disabled selected :value="-1"> Choose </option>
+                            <option v-for="(s, i) in static.motivation.person" :value="i">
+                              {{s}}
+                            </option>
+                          </select>
+                        </span>
+                        <button type="button" class="button is-info" @click="roll('motivation.person')"> Roll </button>
+                      </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> What do you value most </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="motivation.value" v-model="char.motivation.value">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.motivation.value" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('motivation.value')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> How do you feel about most people? </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="motivation.people" v-model="char.motivation.people">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.motivation.people" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('motivation.people')"> Roll </button>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label"> Your most valued posession </label>
+                    <p class="control">
+                      <span class="select">
+                        <select id="motivation.posession" v-model="char.motivation.posession">
+                          <option disabled selected :value="-1"> Choose </option>
+                          <option v-for="(s, i) in static.motivation.posession" :value="i">
+                            {{s}}
+                          </option>
+                        </select>
+                      </span>
+                      <button type="button" class="button is-info" @click="roll('motivation.posession')"> Roll </button>
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+          </div> <!-- box -->
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

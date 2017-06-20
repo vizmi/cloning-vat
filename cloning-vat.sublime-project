@@ -1,0 +1,28 @@
+{
+  "folders":
+  [
+    {
+      "name": "east-bay-hun-school project",
+      "path": ".",
+      "folder_exclude_patterns": ["node_modules"]
+    }
+  ],
+  "env":
+  {
+    "windows":
+    {
+      "PATH": "%PATH%;C:\\Programs\\node;C:\\Programs\\portable_git\\cmd;"
+    }
+  },
+  "build_systems":
+  [
+    {
+      "name": "List",
+      "shell_cmd": "dir"
+    },
+    {
+      "name": "Gulp",
+      "shell_cmd": "gulp"
+    }
+  ]
+}

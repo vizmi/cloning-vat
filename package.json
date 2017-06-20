@@ -1,0 +1,27 @@
+{
+  "name": "cloning-vat",
+  "version": "1.0.0",
+  "description": "Cyberpunk 2020 Character Generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vizmi"
+  },
+  "keywords": [
+    "Cyberpunk 2020",
+    "vue.js",
+    "mini.css",
+    "gulp"
+  ],
+  "author": "vizmi",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0"
+  },
+  "dependencies": {
+  }
+}
