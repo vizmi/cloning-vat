@@ -259,13 +259,117 @@ const static = {
   },
   lifePath: {
     main: [
-    { name: 'Big problems/wins', numbers: [1, 2, 3], next: 'big' },
-    { name: 'Friends & Enemies', numbers: [4, 5, 6], next: 'contact' },
-    { name: 'Romantic involvement', numbers: [7, 8], next: 'romance'},
-    { name: 'Nothing important', numbers: [9, 10], next: null }
-  ],
-  big: [
-
-  ]
-
+      { name: 'Big problems/wins', numbers: [1,2,3], next: 'big' },
+      { name: 'Friends & Enemies', numbers: [4,5,6], next: null },
+      { name: 'Romantic involvement', numbers: [7,8], next: null },
+      { name: 'Nothing important', numbers: [9,10], next: null }
+    ],
+    big: [
+      { name: 'Disaster strikes!', numbers: [1,2,3,4,5], next: 'disaster' },
+      { name: 'You get lucky!', numbers: [6,7,8,9,10], next: 'luck'}
+    ],
+    disaster: [
+      { name: 'Financial Loss or Debt', numbers: [1], next: 'money'},
+      { name: 'Imprisonment', numbers: [2], next: 'months'},
+      { name: 'Illness or addiction: Lost 1 pt of REF permanently as a result.', numbers: [3], next: 'whatToDoAboutIt' },
+      { name: 'Betrayal', numbers: [4], next: 'betrayal' },
+      { name: 'Accident', numbers: [5], next: 'accident' },
+      { name: 'Lover, friend ot relative killed', numbers: [6], next: 'killed' },
+      { name: 'False Accusation', numbers: [7], next: 'accusation'},
+      { name: 'Hunted by the Law', numbers: [8], next: 'huntedByTheLaw'},
+      { name: 'Hunted by a Corporation', numbers: [9], next: 'huntedByCorporation'},
+      { name: 'Mental or physical incapacitation', numbers: [10], next: 'incapacitation'},
+    ],
+    money: [
+      { name: '100 Eb', numbers: [1], next: 'whatToDoAboutIt' },
+      { name: '200 Eb', numbers: [2], next: 'whatToDoAboutIt' },
+      { name: '300 Eb', numbers: [3], next: 'whatToDoAboutIt' },
+      { name: '400 Eb', numbers: [4], next: 'whatToDoAboutIt' },
+      { name: '500 Eb', numbers: [5], next: 'whatToDoAboutIt' },
+      { name: '600 Eb', numbers: [6], next: 'whatToDoAboutIt' },
+      { name: '700 Eb', numbers: [7], next: 'whatToDoAboutIt' },
+      { name: '800 Eb', numbers: [8], next: 'whatToDoAboutIt' },
+      { name: '900 Eb', numbers: [9], next: 'whatToDoAboutIt' },
+      { name: '1000 Eb', numbers: [10], next: 'whatToDoAboutIt' }
+    ],
+    months: [
+      { name: '1 month', numbers: [1], next: 'whatToDoAboutIt' },
+      { name: '2 months', numbers: [2], next: 'whatToDoAboutIt' },
+      { name: '3 months', numbers: [3], next: 'whatToDoAboutIt' },
+      { name: '4 months', numbers: [4], next: 'whatToDoAboutIt' },
+      { name: '5 months', numbers: [5], next: 'whatToDoAboutIt' },
+      { name: '6 months', numbers: [6], next: 'whatToDoAboutIt' },
+      { name: '7 months', numbers: [7], next: 'whatToDoAboutIt' },
+      { name: '8 months', numbers: [8], next: 'whatToDoAboutIt' },
+      { name: '9 months', numbers: [9], next: 'whatToDoAboutIt' },
+      { name: '10 months', numbers: [10], next: 'whatToDoAboutIt' }
+    ],
+    betrayal: [
+      { name: 'blackmailed', numbers: [1,2,3], next: 'whatToDoAboutIt' },
+      { name: 'a secret was exposed', numbers: [4,5,6,7], next: 'whatToDoAboutIt' },
+      { name: 'betrayed', numbers: [8,9,10], next: 'whatToDoAboutIt' }
+    ],
+    accident: [
+      { name: 'disfigured, -5 ATTR', numbers: [1,2,3,4], next: 'whatToDoAboutIt' },
+      { name: 'hospitalized', numbers: [5,6] next: 'months' },
+      { name: 'lost memories', numbers: [7,8], next: 'months' },
+      { name: 'nightmares (8 out of 10 nights) of the accident' numbers: [9,10], next: 'whatToDoAboutIt' }
+    ],
+    killed: [
+      { name: 'they died accidentally', numbers: [1,2,3,4,5], next: 'whatToDoAboutIt' },
+      { name: 'they were murdered by unknown parties', numbers: [6,7,8], next: 'whatToDoAboutIt' },
+      { name: 'they were murdered and you know who did it. You just need the proof', numbers: [9,10], next: 'whatToDoAboutIt' },
+    ],
+    accusation: [
+      { name: 'theft', numbers: [1,2,3], next: 'whatToDoAboutIt' },
+      { name: 'cowardice', numbers: [4,5], next: 'whatToDoAboutIt' },
+      { name: 'murder', numbers: [6,7,8], next: 'whatToDoAboutIt'},
+      { name: 'rape', numbers: [9], next: 'whatToDoAboutIt' },
+      { name: 'betrayal', numbers: [10], next: 'whatToDoAboutIt' }
+    ],
+    huntedByTheLaw: [
+      { name: 'a couple local cops', numbers: [1,2,3], next: 'whatToDoAboutIt' },
+      { name: 'the entire local force', numbers: [4,5,6], next: 'whatToDoAboutIt' },
+      { name: 'State police or Militia', numbers: [7,8], next: 'whatToDoAboutIt' },
+      { name: 'FBI or equivalent', numbers: [9, 10], next: 'whatToDoAboutIt' }
+    ],
+    huntedByCorporation: [
+      { name: 'Small local firm', numbers: [1,2,3], next: 'whatToDoAboutIt' },
+      { name: 'Statewide corp', numbers: [4,5,6], next: 'whatToDoAboutIt' },
+      { name: 'National corp', numbers: [7,8], next: 'whatToDoAboutIt' },
+      { name: 'Multinational corp', numbers: [9,10], next: 'whatToDoAboutIt' }
+    ],
+    incapacitation: [
+      { name: 'Nervous disorder. -1 REF', numbers: [1,2,3], next: 'whatToDoAboutIt' },
+      { name: 'Mental problem -1 CL', numbers: [4,5,6,7], next: 'whatToDoAboutIt' },
+      { name: 'Psychosis -1 CL, -1 REF', numbers: [8,9,10], next: 'whatToDoAboutIt' }
+    ],
+    whatToDoAboutIt: [
+      { name: 'Clear your name', numbers: [1,2], next: null },
+      { name: 'Live it down and try to forget it', numbers: [3,4], next: null },
+      { name: 'Hunt down those responsible and moke them pay!', numbers: [5,6], next: null },
+      { name: 'Get what\'s rightfully yours', numbers: [7,8], next: null },
+      { name: 'Save, if possible, anyone else involved in the situation', numbers: [9,10], next: null }
+    ],
+    luck: [
+      { name: 'Powerful Connection in City Government', numbers: [1], next: 'govtConnection' },
+      { name: 'Financial Windfall', numbers: [2], next: money },
+      { name: 'Big score or deal', numbers: [3], next: money },
+      { name: 'Find a Sensei (teacher). Begin at +2 or add +1 to a Martial Arts Skill of your choice.', numbers: [4], next: null },
+      { name: 'Find a Teacher: Add +1 to any INT based skill, or begin a new INT based skill at +2.', numbers: [5], next: null },
+      { name: 'Powerful Corporate Exec owes you one favor.', numbers: [6], next: null },
+      { name: 'Local Nomad Pack befriends you. Equivalent to a Family +2', numbers: [7], next: null },
+      { name: 'Make a Friend on the Police Force. Inside information at a level of +2 Streetwise on any police related matters', numbers: [8], next: null },
+      { name: 'Local Boostergang likes you. You can call upon them for 1 favor a month, equivalent to a Family Special Ability of +2', numbers: [9], next: null } ,
+      { name: 'Find a Combat Teacher. Add +1 to any weapon skill with the exception of Martial Arts or Brawling, or begin a new combat skill at +2.', numbers: [10], next: null }
+    ],
+    govtConnection: [
+      { name: 'Police Dept.', numbers: [1,2,3,4], next: null},
+      { name: 'District Attorney\'s Office', numbers: [5,6,7], next: null},
+      { name: 'Mayor\'s Office', numbers: [8,9,10], next: null},
+    ]
+  }
 }
+
+/* { name: '', numbers: [], next: ''},
+*/
