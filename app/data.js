@@ -260,7 +260,7 @@ const static = {
   lifePath: {
     main: [
       { name: 'Big problems/wins', numbers: [1,2,3], next: 'big' },
-      { name: 'Friends & Enemies', numbers: [4,5,6], next: null },
+      { name: 'Friends & Enemies', numbers: [4,5,6], next: 'contacts' },
       { name: 'Romantic involvement', numbers: [7,8], next: null },
       { name: 'Nothing important', numbers: [9,10], next: null }
     ],
@@ -271,7 +271,7 @@ const static = {
     disaster: [
       { name: 'Financial Loss or Debt', numbers: [1], next: 'money'},
       { name: 'Imprisonment', numbers: [2], next: 'months'},
-      { name: 'Illness or addiction: Lost 1 pt of REF permanently as a result.', numbers: [3], next: 'whatToDoAboutIt' },
+      { name: 'Illness or addiction: Lost 1 pt of REF permanently as a result.', numbers: [3], next: 'disasterAbout' },
       { name: 'Betrayal', numbers: [4], next: 'betrayal' },
       { name: 'Accident', numbers: [5], next: 'accident' },
       { name: 'Lover, friend ot relative killed', numbers: [6], next: 'killed' },
@@ -281,70 +281,70 @@ const static = {
       { name: 'Mental or physical incapacitation', numbers: [10], next: 'incapacitation'},
     ],
     money: [
-      { name: '100 Eb', numbers: [1], next: 'whatToDoAboutIt' },
-      { name: '200 Eb', numbers: [2], next: 'whatToDoAboutIt' },
-      { name: '300 Eb', numbers: [3], next: 'whatToDoAboutIt' },
-      { name: '400 Eb', numbers: [4], next: 'whatToDoAboutIt' },
-      { name: '500 Eb', numbers: [5], next: 'whatToDoAboutIt' },
-      { name: '600 Eb', numbers: [6], next: 'whatToDoAboutIt' },
-      { name: '700 Eb', numbers: [7], next: 'whatToDoAboutIt' },
-      { name: '800 Eb', numbers: [8], next: 'whatToDoAboutIt' },
-      { name: '900 Eb', numbers: [9], next: 'whatToDoAboutIt' },
-      { name: '1000 Eb', numbers: [10], next: 'whatToDoAboutIt' }
+      { name: '100 Eb', numbers: [1], next: 'disasterAbout' },
+      { name: '200 Eb', numbers: [2], next: 'disasterAbout' },
+      { name: '300 Eb', numbers: [3], next: 'disasterAbout' },
+      { name: '400 Eb', numbers: [4], next: 'disasterAbout' },
+      { name: '500 Eb', numbers: [5], next: 'disasterAbout' },
+      { name: '600 Eb', numbers: [6], next: 'disasterAbout' },
+      { name: '700 Eb', numbers: [7], next: 'disasterAbout' },
+      { name: '800 Eb', numbers: [8], next: 'disasterAbout' },
+      { name: '900 Eb', numbers: [9], next: 'disasterAbout' },
+      { name: '1000 Eb', numbers: [10], next: 'disasterAbout' }
     ],
     months: [
-      { name: '1 month', numbers: [1], next: 'whatToDoAboutIt' },
-      { name: '2 months', numbers: [2], next: 'whatToDoAboutIt' },
-      { name: '3 months', numbers: [3], next: 'whatToDoAboutIt' },
-      { name: '4 months', numbers: [4], next: 'whatToDoAboutIt' },
-      { name: '5 months', numbers: [5], next: 'whatToDoAboutIt' },
-      { name: '6 months', numbers: [6], next: 'whatToDoAboutIt' },
-      { name: '7 months', numbers: [7], next: 'whatToDoAboutIt' },
-      { name: '8 months', numbers: [8], next: 'whatToDoAboutIt' },
-      { name: '9 months', numbers: [9], next: 'whatToDoAboutIt' },
-      { name: '10 months', numbers: [10], next: 'whatToDoAboutIt' }
+      { name: '1 month', numbers: [1], next: 'disasterAbout' },
+      { name: '2 months', numbers: [2], next: 'disasterAbout' },
+      { name: '3 months', numbers: [3], next: 'disasterAbout' },
+      { name: '4 months', numbers: [4], next: 'disasterAbout' },
+      { name: '5 months', numbers: [5], next: 'disasterAbout' },
+      { name: '6 months', numbers: [6], next: 'disasterAbout' },
+      { name: '7 months', numbers: [7], next: 'disasterAbout' },
+      { name: '8 months', numbers: [8], next: 'disasterAbout' },
+      { name: '9 months', numbers: [9], next: 'disasterAbout' },
+      { name: '10 months', numbers: [10], next: 'disasterAbout' }
     ],
     betrayal: [
-      { name: 'blackmailed', numbers: [1,2,3], next: 'whatToDoAboutIt' },
-      { name: 'a secret was exposed', numbers: [4,5,6,7], next: 'whatToDoAboutIt' },
-      { name: 'betrayed', numbers: [8,9,10], next: 'whatToDoAboutIt' }
+      { name: 'blackmailed', numbers: [1,2,3], next: 'disasterAbout' },
+      { name: 'a secret was exposed', numbers: [4,5,6,7], next: 'disasterAbout' },
+      { name: 'betrayed', numbers: [8,9,10], next: 'disasterAbout' }
     ],
     accident: [
-      { name: 'disfigured, -5 ATTR', numbers: [1,2,3,4], next: 'whatToDoAboutIt' },
-      { name: 'hospitalized', numbers: [5,6] next: 'months' },
+      { name: 'disfigured, -5 ATTR', numbers: [1,2,3,4], next: 'disasterAbout' },
+      { name: 'hospitalized', numbers: [5,6], next: 'months' },
       { name: 'lost memories', numbers: [7,8], next: 'months' },
-      { name: 'nightmares (8 out of 10 nights) of the accident' numbers: [9,10], next: 'whatToDoAboutIt' }
+      { name: 'nightmares (8 out of 10 nights) of the accident', numbers: [9,10], next: 'disasterAbout' }
     ],
     killed: [
-      { name: 'they died accidentally', numbers: [1,2,3,4,5], next: 'whatToDoAboutIt' },
-      { name: 'they were murdered by unknown parties', numbers: [6,7,8], next: 'whatToDoAboutIt' },
-      { name: 'they were murdered and you know who did it. You just need the proof', numbers: [9,10], next: 'whatToDoAboutIt' },
+      { name: 'they died accidentally', numbers: [1,2,3,4,5], next: 'disasterAbout' },
+      { name: 'they were murdered by unknown parties', numbers: [6,7,8], next: 'disasterAbout' },
+      { name: 'they were murdered and you know who did it. You just need the proof', numbers: [9,10], next: 'disasterAbout' },
     ],
     accusation: [
-      { name: 'theft', numbers: [1,2,3], next: 'whatToDoAboutIt' },
-      { name: 'cowardice', numbers: [4,5], next: 'whatToDoAboutIt' },
-      { name: 'murder', numbers: [6,7,8], next: 'whatToDoAboutIt'},
-      { name: 'rape', numbers: [9], next: 'whatToDoAboutIt' },
-      { name: 'betrayal', numbers: [10], next: 'whatToDoAboutIt' }
+      { name: 'theft', numbers: [1,2,3], next: 'disasterAbout' },
+      { name: 'cowardice', numbers: [4,5], next: 'disasterAbout' },
+      { name: 'murder', numbers: [6,7,8], next: 'disasterAbout'},
+      { name: 'rape', numbers: [9], next: 'disasterAbout' },
+      { name: 'betrayal', numbers: [10], next: 'disasterAbout' }
     ],
     huntedByTheLaw: [
-      { name: 'a couple local cops', numbers: [1,2,3], next: 'whatToDoAboutIt' },
-      { name: 'the entire local force', numbers: [4,5,6], next: 'whatToDoAboutIt' },
-      { name: 'State police or Militia', numbers: [7,8], next: 'whatToDoAboutIt' },
-      { name: 'FBI or equivalent', numbers: [9, 10], next: 'whatToDoAboutIt' }
+      { name: 'a couple local cops', numbers: [1,2,3], next: 'disasterAbout' },
+      { name: 'the entire local force', numbers: [4,5,6], next: 'disasterAbout' },
+      { name: 'State police or Militia', numbers: [7,8], next: 'disasterAbout' },
+      { name: 'FBI or equivalent', numbers: [9, 10], next: 'disasterAbout' }
     ],
     huntedByCorporation: [
-      { name: 'Small local firm', numbers: [1,2,3], next: 'whatToDoAboutIt' },
-      { name: 'Statewide corp', numbers: [4,5,6], next: 'whatToDoAboutIt' },
-      { name: 'National corp', numbers: [7,8], next: 'whatToDoAboutIt' },
-      { name: 'Multinational corp', numbers: [9,10], next: 'whatToDoAboutIt' }
+      { name: 'Small local firm', numbers: [1,2,3], next: 'disasterAbout' },
+      { name: 'Statewide corp', numbers: [4,5,6], next: 'disasterAbout' },
+      { name: 'National corp', numbers: [7,8], next: 'disasterAbout' },
+      { name: 'Multinational corp', numbers: [9,10], next: 'disasterAbout' }
     ],
     incapacitation: [
-      { name: 'Nervous disorder. -1 REF', numbers: [1,2,3], next: 'whatToDoAboutIt' },
-      { name: 'Mental problem -1 CL', numbers: [4,5,6,7], next: 'whatToDoAboutIt' },
-      { name: 'Psychosis -1 CL, -1 REF', numbers: [8,9,10], next: 'whatToDoAboutIt' }
+      { name: 'Nervous disorder. -1 REF', numbers: [1,2,3], next: 'disasterAbout' },
+      { name: 'Mental problem -1 CL', numbers: [4,5,6,7], next: 'disasterAbout' },
+      { name: 'Psychosis -1 CL, -1 REF', numbers: [8,9,10], next: 'disasterAbout' }
     ],
-    whatToDoAboutIt: [
+    disasterAbout: [
       { name: 'Clear your name', numbers: [1,2], next: null },
       { name: 'Live it down and try to forget it', numbers: [3,4], next: null },
       { name: 'Hunt down those responsible and moke them pay!', numbers: [5,6], next: null },
@@ -353,8 +353,8 @@ const static = {
     ],
     luck: [
       { name: 'Powerful Connection in City Government', numbers: [1], next: 'govtConnection' },
-      { name: 'Financial Windfall', numbers: [2], next: money },
-      { name: 'Big score or deal', numbers: [3], next: money },
+      { name: 'Financial Windfall', numbers: [2], next: 'money' },
+      { name: 'Big score or deal', numbers: [3], next: 'money' },
       { name: 'Find a Sensei (teacher). Begin at +2 or add +1 to a Martial Arts Skill of your choice.', numbers: [4], next: null },
       { name: 'Find a Teacher: Add +1 to any INT based skill, or begin a new INT based skill at +2.', numbers: [5], next: null },
       { name: 'Powerful Corporate Exec owes you one favor.', numbers: [6], next: null },
@@ -367,9 +367,73 @@ const static = {
       { name: 'Police Dept.', numbers: [1,2,3,4], next: null},
       { name: 'District Attorney\'s Office', numbers: [5,6,7], next: null},
       { name: 'Mayor\'s Office', numbers: [8,9,10], next: null},
-    ]
+    ],
+
+
+    contacts: [
+      { name: 'Friend', numbers: [1,2,3,4,5], next: 'friend' },
+      { name: 'Enemy', numbers: [6,7,8,9,10], next: 'enemy'}
+    ],
+    friend: [
+      { name: 'Like a big brother/sister to you', numbers: [1], next: null },
+      { name: 'Like a kid sister/brother to you', numbers: [2], next: null },
+      { name: 'A teacher or mentor', numbers: [3], next: null },
+      { name: 'A partner or co-worker', numbers: [4], next: null },
+      { name: 'An old lover (choose which one)', numbers: [5], next: null },
+      { name: 'An old enemy (choose which one)', numbers: [6], next: null },
+      { name: 'Like a foster parent to you', numbers: [7], next: null },
+      { name: 'A relative', numbers: [8], next: null },
+      { name: 'Reconnect with an old childhood friend', numbers: [9], next: null },
+      { name: 'Met through a common interest', numbers: [10], next: null },
+    ],
+    enemy: [
+      { name: 'Ex friend', numbers: [1], next: 'cause' },
+      { name: 'Ex lover', numbers: [2], next: 'cause' },
+      { name: 'Relative', numbers: [3], next: 'cause' },
+      { name: 'Childhood enemy', numbers: [4], next: 'cause' },
+      { name: 'Person working for you', numbers: [5], next: 'cause' },
+      { name: 'Person you work for', numbers: [6], next: 'cause' },
+      { name: 'Partner or co-worker', numbers: [7], next: 'cause' },
+      { name: 'Booster gang member', numbers: [8], next: 'cause' },
+      { name: 'Corporate Exec', numbers: [9], next: 'cause' },
+      { name: 'Government Official ', numbers: [10], next: 'cause' }
+    ],
+    cause: [
+      { name: 'Caused the other to lose face or status', numbers: [1], next: 'fracked' },
+      { name: 'Caused the loss of a lover, friend or relative ', numbers: [2], next: 'fracked' },
+      { name: 'Caused a major humiliation ', numbers: [3], next: 'fracked' },
+      { name: 'Accused the other of cowardice or some other personal flaw ', numbers: [4], next: 'fracked' },
+      { name: 'Caused a physical disability: (Roll 1D6. 1=2 lose eye. 3-4=lose arm. 5-6=badly scarred)', numbers: [5], next: 'fracked' },
+      { name: 'Deserted or betrayed the other ', numbers: [6], next: 'fracked' },
+      { name: 'Turned down other\'s offer of job or romantic involvement ', numbers: [7], next: 'fracked' },
+      { name: 'You just didn\'t like each other', numbers: [8], next: 'fracked' },
+      { name: 'Was a romantic rival ', numbers: [9], next: 'fracked' },
+      { name: 'Foiled a plan of the other\'s  ', numbers: [10], next: 'fracked' }
+    ],
+    fracked: [
+      { name: 'They hate you', numbers: [1,2,3,4], next: 'enemyAbout' },
+      { name: 'You hate them', numbers: [5,6,7], next: 'enemyAbout' },
+      { name: 'The feeling\'s mutual', numbers: [8,9,10], next: 'enemyAbout' }
+    ],
+    enemyAbout: [
+      { name: 'Go into a murderous killing rage and rip his face off!', numbers: [1,2], next: 'againstYou' },
+      { name: 'Avoid the scum', numbers: [3,4], next: 'againstYou' },
+      { name: 'Backstab him indirectly', numbers: [5,6], next: 'againstYou' },
+      { name: 'Ignore the scum', numbers: [7,8], next: 'againstYou' },
+      { name: 'Rip into him verbally', numbers: [9,10], next: 'againstYou' }
+    ],
+    againstYou: [
+      { name: 'Just himself', numbers: [1,2,3], next: null },
+      { name: 'Himself and a few friends', numbers: [4,5], next: null },
+      { name: 'An entire Gang', numbers: [6,7], next: null },
+      { name: 'A small Corporation', numbers: [8], next: null },
+      { name: 'A large Corporation', numbers: [9], next: null },
+      { name: 'An entire Government Agency', numbers: [10], next: null }
+    ],
+
+
+
   }
 }
-
 /* { name: '', numbers: [], next: ''},
 */

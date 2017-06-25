@@ -255,6 +255,18 @@ var app = new Vue({
       }
       return result;
     },
+    rollLifePath: function() {
+      var x = 'main';
+      var result = '';
+      while (x !== null) {
+        var roll = this.d(10);
+        var rolled = this.static.lifePath[x].find(function(e) { return e.numbers.includes(roll); });
+        result += rolled.name  + ' - ';
+
+        x = rolled.next;
+      }
+      return result.slice(0, -3);
+    },
     addPickupSkill: function(event) {
       var s = Number(event.target.value);
       this.char.pickupSkills.push({
