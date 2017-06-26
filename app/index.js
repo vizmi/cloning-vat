@@ -172,7 +172,7 @@ var app = new Vue({
   },
   methods: {
     d: function(size) {
-      return Math.floor(Math.random() * 10 + 1);
+      return Math.floor(Math.random() * size + 1);
     },
     roll: function(what) {
       switch (what) {
@@ -208,7 +208,7 @@ var app = new Vue({
           roll = this.d(10);
           if (roll < 8) {
             for (var i = 0; i < roll; i++) {
-              this.char.siblings.push(this.rollSibling());
+              this.char.siblings.push(this.rollOnTree('sibling', ' '));
             }
           }
           break;
@@ -230,42 +230,18 @@ var app = new Vue({
       document.getElementById(what).value = roll;
       this.char[what] = roll;
     },
-    rollSibling: function() {
-      result = '';
-      roll = this.d(10);
-      if (roll < 6) {
-        result += 'older ';
-      } else if (roll < 10) {
-        result += 'younger ';
-      } else {
-        result += 'twin ';
-      }
-      result += this.d(2) === 1 ? 'brother ' : 'sister ';
-      roll = this.d(10);
-      if (roll < 3) {
-        result += 'who dislikes you';
-      } else if (roll < 5) {
-        result += 'who likes you';
-      } else if (roll < 7) {
-        result += 'who is neutral towards you';
-      } else if (roll < 9) {
-        result += 'who hero worships you';
-      } else {
-        result += 'who hates you';
-      }
-      return result;
-    },
-    rollLifePath: function() {
-      var x = 'main';
+    rollOnTree: function(start = 'lifePath', separator = ' - ') {
       var result = '';
-      while (x !== null) {
-        var roll = this.d(10);
-        var rolled = this.static.lifePath[x].find(function(e) { return e.numbers.includes(roll); });
-        result += rolled.name  + ' - ';
-
-        x = rolled.next;
+      var next = start;
+      var nextDie = 10;
+      while (next) {
+        var roll = this.d(nextDie);
+        var rolled = this.static.rollTree[next].find(function(e) { return e.rolls.includes(roll); });
+        result += rolled.text  + separator;
+        next = rolled.next;
+        nextDie = rolled.nextDie ? rolled.nextDie : 10;
       }
-      return result.slice(0, -3);
+      return result.slice(0, -separator.length);
     },
     addPickupSkill: function(event) {
       var s = Number(event.target.value);

@@ -257,183 +257,255 @@ const static = {
       "A letter"
     ]
   },
-  lifePath: {
-    main: [
-      { name: 'Big problems/wins', numbers: [1,2,3], next: 'big' },
-      { name: 'Friends & Enemies', numbers: [4,5,6], next: 'contacts' },
-      { name: 'Romantic involvement', numbers: [7,8], next: null },
-      { name: 'Nothing important', numbers: [9,10], next: null }
+  rollTree: {
+    sibling: [
+      { rolls: [1,2,3,4,5], text: 'Older', next: 'siblingMF' },
+      { rolls: [6,7,8,9], text: 'Younger', next: 'siblingMF' },
+      { rolls: [10], text: 'Twin', next: 'siblingMF' }
+    ],
+    siblingMF: [
+      { rolls: [2,4,6,8,10], text: 'brother', next: 'siblingFeeling' },
+      { rolls: [1,3,5,7,9], text: 'sister', next: 'siblingFeeling'  }
+    ],
+    siblingFeeling: [
+      { rolls: [1,2], text: 'who dislikes you' },
+      { rolls: [3,4], text: 'who likes you' },
+      { rolls: [5,6], text: 'who is neutral towards you' },
+      { rolls: [7,8], text: 'who hero worships you' },
+      { rolls: [9,10], text: 'who hates you' }
+    ],
+
+
+    lifePath: [
+      { rolls: [1,2,3], text: 'Big problems/wins', next: 'big' },
+      { rolls: [4,5,6], text: 'Friends & Enemies', next: 'contacts' },
+      { rolls: [7,8], text: 'Romantic involvement', next: 'romance' },
+      { rolls: [9,10], text: 'Nothing important' }
     ],
     big: [
-      { name: 'Disaster strikes!', numbers: [1,2,3,4,5], next: 'disaster' },
-      { name: 'You get lucky!', numbers: [6,7,8,9,10], next: 'luck'}
+      { rolls: [1,2,3,4,5], text: 'Disaster strikes!', next: 'disaster' },
+      { rolls: [6,7,8,9,10], text: 'You get lucky!', next: 'luck'}
     ],
     disaster: [
-      { name: 'Financial Loss or Debt', numbers: [1], next: 'money'},
-      { name: 'Imprisonment', numbers: [2], next: 'months'},
-      { name: 'Illness or addiction: Lost 1 pt of REF permanently as a result.', numbers: [3], next: 'disasterAbout' },
-      { name: 'Betrayal', numbers: [4], next: 'betrayal' },
-      { name: 'Accident', numbers: [5], next: 'accident' },
-      { name: 'Lover, friend ot relative killed', numbers: [6], next: 'killed' },
-      { name: 'False Accusation', numbers: [7], next: 'accusation'},
-      { name: 'Hunted by the Law', numbers: [8], next: 'huntedByTheLaw'},
-      { name: 'Hunted by a Corporation', numbers: [9], next: 'huntedByCorporation'},
-      { name: 'Mental or physical incapacitation', numbers: [10], next: 'incapacitation'},
+      { rolls: [1], text: 'Financial Loss or Debt', next: 'loss'},
+      { rolls: [2], text: 'Imprisonment', next: 'months'},
+      { rolls: [3], text: 'Illness or addiction: Lost 1 pt of REF permanently as a result.', next: 'disasterAbout' },
+      { rolls: [4], text: 'Betrayal', next: 'betrayal' },
+      { rolls: [5], text: 'Accident', next: 'accident' },
+      { rolls: [6], text: 'Lover, friend ot relative killed', next: 'killed' },
+      { rolls: [7], text: 'False Accusation', next: 'accusation'},
+      { rolls: [8], text: 'Hunted by the Law', next: 'huntedByTheLaw'},
+      { rolls: [9], text: 'Hunted by a Corporation', next: 'huntedByCorporation'},
+      { rolls: [10], text: 'Mental or physical incapacitation', next: 'incapacitation'},
     ],
-    money: [
-      { name: '100 Eb', numbers: [1], next: 'disasterAbout' },
-      { name: '200 Eb', numbers: [2], next: 'disasterAbout' },
-      { name: '300 Eb', numbers: [3], next: 'disasterAbout' },
-      { name: '400 Eb', numbers: [4], next: 'disasterAbout' },
-      { name: '500 Eb', numbers: [5], next: 'disasterAbout' },
-      { name: '600 Eb', numbers: [6], next: 'disasterAbout' },
-      { name: '700 Eb', numbers: [7], next: 'disasterAbout' },
-      { name: '800 Eb', numbers: [8], next: 'disasterAbout' },
-      { name: '900 Eb', numbers: [9], next: 'disasterAbout' },
-      { name: '1000 Eb', numbers: [10], next: 'disasterAbout' }
+    loss: [
+      { rolls: [1], text: '100 Eb', next: 'disasterAbout' },
+      { rolls: [2], text: '200 Eb', next: 'disasterAbout' },
+      { rolls: [3], text: '300 Eb', next: 'disasterAbout' },
+      { rolls: [4], text: '400 Eb', next: 'disasterAbout' },
+      { rolls: [5], text: '500 Eb', next: 'disasterAbout' },
+      { rolls: [6], text: '600 Eb', next: 'disasterAbout' },
+      { rolls: [7], text: '700 Eb', next: 'disasterAbout' },
+      { rolls: [8], text: '800 Eb', next: 'disasterAbout' },
+      { rolls: [9], text: '900 Eb', next: 'disasterAbout' },
+      { rolls: [10], text: '1000 Eb', next: 'disasterAbout' }
     ],
     months: [
-      { name: '1 month', numbers: [1], next: 'disasterAbout' },
-      { name: '2 months', numbers: [2], next: 'disasterAbout' },
-      { name: '3 months', numbers: [3], next: 'disasterAbout' },
-      { name: '4 months', numbers: [4], next: 'disasterAbout' },
-      { name: '5 months', numbers: [5], next: 'disasterAbout' },
-      { name: '6 months', numbers: [6], next: 'disasterAbout' },
-      { name: '7 months', numbers: [7], next: 'disasterAbout' },
-      { name: '8 months', numbers: [8], next: 'disasterAbout' },
-      { name: '9 months', numbers: [9], next: 'disasterAbout' },
-      { name: '10 months', numbers: [10], next: 'disasterAbout' }
+      { rolls: [1], text: '1 month', next: 'disasterAbout' },
+      { rolls: [2], text: '2 months', next: 'disasterAbout' },
+      { rolls: [3], text: '3 months', next: 'disasterAbout' },
+      { rolls: [4], text: '4 months', next: 'disasterAbout' },
+      { rolls: [5], text: '5 months', next: 'disasterAbout' },
+      { rolls: [6], text: '6 months', next: 'disasterAbout' },
+      { rolls: [7], text: '7 months', next: 'disasterAbout' },
+      { rolls: [8], text: '8 months', next: 'disasterAbout' },
+      { rolls: [9], text: '9 months', next: 'disasterAbout' },
+      { rolls: [10], text: '10 months', next: 'disasterAbout' }
     ],
     betrayal: [
-      { name: 'blackmailed', numbers: [1,2,3], next: 'disasterAbout' },
-      { name: 'a secret was exposed', numbers: [4,5,6,7], next: 'disasterAbout' },
-      { name: 'betrayed', numbers: [8,9,10], next: 'disasterAbout' }
+      { rolls: [1,2,3], text: 'Blackmailed', next: 'disasterAbout' },
+      { rolls: [4,5,6,7], text: 'A secret was exposed', next: 'disasterAbout' },
+      { rolls: [8,9,10], text: 'Betrayed', next: 'disasterAbout' }
     ],
     accident: [
-      { name: 'disfigured, -5 ATTR', numbers: [1,2,3,4], next: 'disasterAbout' },
-      { name: 'hospitalized', numbers: [5,6], next: 'months' },
-      { name: 'lost memories', numbers: [7,8], next: 'months' },
-      { name: 'nightmares (8 out of 10 nights) of the accident', numbers: [9,10], next: 'disasterAbout' }
+      { rolls: [1,2,3,4], text: 'Disfigured, -5 ATTR', next: 'disasterAbout' },
+      { rolls: [5,6], text: 'Hospitalized', next: 'months' },
+      { rolls: [7,8], text: 'Lost memories', next: 'months' },
+      { rolls: [9,10], text: 'Nightmares (8 out of 10 nights) of the accident', next: 'disasterAbout' }
     ],
     killed: [
-      { name: 'they died accidentally', numbers: [1,2,3,4,5], next: 'disasterAbout' },
-      { name: 'they were murdered by unknown parties', numbers: [6,7,8], next: 'disasterAbout' },
-      { name: 'they were murdered and you know who did it. You just need the proof', numbers: [9,10], next: 'disasterAbout' },
+      { rolls: [1,2,3,4,5], text: 'They died accidentally', next: 'disasterAbout' },
+      { rolls: [6,7,8], text: 'They were murdered by unknown parties', next: 'disasterAbout' },
+      { rolls: [9,10], text: 'They were murdered and you know who did it. You just need the proof', next: 'disasterAbout' },
     ],
     accusation: [
-      { name: 'theft', numbers: [1,2,3], next: 'disasterAbout' },
-      { name: 'cowardice', numbers: [4,5], next: 'disasterAbout' },
-      { name: 'murder', numbers: [6,7,8], next: 'disasterAbout'},
-      { name: 'rape', numbers: [9], next: 'disasterAbout' },
-      { name: 'betrayal', numbers: [10], next: 'disasterAbout' }
+      { rolls: [1,2,3], text: 'Theft', next: 'disasterAbout' },
+      { rolls: [4,5], text: 'Cowardice', next: 'disasterAbout' },
+      { rolls: [6,7,8], text: 'Murder', next: 'disasterAbout'},
+      { rolls: [9], text: 'Rape', next: 'disasterAbout' },
+      { rolls: [10], text: 'Betrayal', next: 'disasterAbout' }
     ],
     huntedByTheLaw: [
-      { name: 'a couple local cops', numbers: [1,2,3], next: 'disasterAbout' },
-      { name: 'the entire local force', numbers: [4,5,6], next: 'disasterAbout' },
-      { name: 'State police or Militia', numbers: [7,8], next: 'disasterAbout' },
-      { name: 'FBI or equivalent', numbers: [9, 10], next: 'disasterAbout' }
+      { rolls: [1,2,3], text: 'A couple local cops', next: 'disasterAbout' },
+      { rolls: [4,5,6], text: 'The entire local force', next: 'disasterAbout' },
+      { rolls: [7,8], text: 'State police or Militia', next: 'disasterAbout' },
+      { rolls: [9, 10], text: 'FBI or equivalent', next: 'disasterAbout' }
     ],
     huntedByCorporation: [
-      { name: 'Small local firm', numbers: [1,2,3], next: 'disasterAbout' },
-      { name: 'Statewide corp', numbers: [4,5,6], next: 'disasterAbout' },
-      { name: 'National corp', numbers: [7,8], next: 'disasterAbout' },
-      { name: 'Multinational corp', numbers: [9,10], next: 'disasterAbout' }
+      { rolls: [1,2,3], text: 'Small local firm', next: 'disasterAbout' },
+      { rolls: [4,5,6], text: 'Statewide corp', next: 'disasterAbout' },
+      { rolls: [7,8], text: 'National corp', next: 'disasterAbout' },
+      { rolls: [9,10], text: 'Multinational corp', next: 'disasterAbout' }
     ],
     incapacitation: [
-      { name: 'Nervous disorder. -1 REF', numbers: [1,2,3], next: 'disasterAbout' },
-      { name: 'Mental problem -1 CL', numbers: [4,5,6,7], next: 'disasterAbout' },
-      { name: 'Psychosis -1 CL, -1 REF', numbers: [8,9,10], next: 'disasterAbout' }
+      { rolls: [1,2,3], text: 'Nervous disorder. -1 REF', next: 'disasterAbout' },
+      { rolls: [4,5,6,7], text: 'Mental problem -1 CL', next: 'disasterAbout' },
+      { rolls: [8,9,10], text: 'Psychosis -1 CL, -1 REF', next: 'disasterAbout' }
     ],
     disasterAbout: [
-      { name: 'Clear your name', numbers: [1,2], next: null },
-      { name: 'Live it down and try to forget it', numbers: [3,4], next: null },
-      { name: 'Hunt down those responsible and moke them pay!', numbers: [5,6], next: null },
-      { name: 'Get what\'s rightfully yours', numbers: [7,8], next: null },
-      { name: 'Save, if possible, anyone else involved in the situation', numbers: [9,10], next: null }
+      { rolls: [1,2], text: 'Clear your name' },
+      { rolls: [3,4], text: 'Live it down and try to forget it' },
+      { rolls: [5,6], text: 'Hunt down those responsible and moke them pay!' },
+      { rolls: [7,8], text: 'Get what\'s rightfully yours' },
+      { rolls: [9,10], text: 'Save, if possible, anyone else involved in the situation' }
     ],
     luck: [
-      { name: 'Powerful Connection in City Government', numbers: [1], next: 'govtConnection' },
-      { name: 'Financial Windfall', numbers: [2], next: 'money' },
-      { name: 'Big score or deal', numbers: [3], next: 'money' },
-      { name: 'Find a Sensei (teacher). Begin at +2 or add +1 to a Martial Arts Skill of your choice.', numbers: [4], next: null },
-      { name: 'Find a Teacher: Add +1 to any INT based skill, or begin a new INT based skill at +2.', numbers: [5], next: null },
-      { name: 'Powerful Corporate Exec owes you one favor.', numbers: [6], next: null },
-      { name: 'Local Nomad Pack befriends you. Equivalent to a Family +2', numbers: [7], next: null },
-      { name: 'Make a Friend on the Police Force. Inside information at a level of +2 Streetwise on any police related matters', numbers: [8], next: null },
-      { name: 'Local Boostergang likes you. You can call upon them for 1 favor a month, equivalent to a Family Special Ability of +2', numbers: [9], next: null } ,
-      { name: 'Find a Combat Teacher. Add +1 to any weapon skill with the exception of Martial Arts or Brawling, or begin a new combat skill at +2.', numbers: [10], next: null }
+      { rolls: [1], text: 'Powerful Connection in City Government', next: 'govtConnection' },
+      { rolls: [2], text: 'Financial Windfall', next: 'money' },
+      { rolls: [3], text: 'Big score or deal', next: 'money' },
+      { rolls: [4], text: 'Find a Sensei (teacher). Begin at +2 or add +1 to a Martial Arts Skill of your choice.' },
+      { rolls: [5], text: 'Find a Teacher: Add +1 to any INT based skill, or begin a new INT based skill at +2.' },
+      { rolls: [6], text: 'Powerful Corporate Exec owes you one favor.' },
+      { rolls: [7], text: 'Local Nomad Pack befriends you. Equivalent to a Family +2' },
+      { rolls: [8], text: 'Make a Friend on the Police Force. Inside information at a level of +2 Streetwise on any police related matters' },
+      { rolls: [9], text: 'Local Boostergang likes you. You can call upon them for 1 favor a month, equivalent to a Family Special Ability of +2' } ,
+      { rolls: [10], text: 'Find a Combat Teacher. Add +1 to any weapon skill with the exception of Martial Arts or Brawling, or begin a new combat skill at +2.' }
     ],
     govtConnection: [
-      { name: 'Police Dept.', numbers: [1,2,3,4], next: null},
-      { name: 'District Attorney\'s Office', numbers: [5,6,7], next: null},
-      { name: 'Mayor\'s Office', numbers: [8,9,10], next: null},
+      { rolls: [1,2,3,4], text: 'Police Dept.'},
+      { rolls: [5,6,7], text: 'District Attorney\'s Office' },
+      { rolls: [8,9,10], text: 'Mayor\'s Office' },
+    ],
+    money: [
+      { rolls: [1], text: '100 Eb' },
+      { rolls: [2], text: '200 Eb' },
+      { rolls: [3], text: '300 Eb' },
+      { rolls: [4], text: '400 Eb' },
+      { rolls: [5], text: '500 Eb' },
+      { rolls: [6], text: '600 Eb' },
+      { rolls: [7], text: '700 Eb' },
+      { rolls: [8], text: '800 Eb' },
+      { rolls: [9], text: '900 Eb' },
+      { rolls: [10], text: '1000 Eb' }
     ],
 
 
     contacts: [
-      { name: 'Friend', numbers: [1,2,3,4,5], next: 'friend' },
-      { name: 'Enemy', numbers: [6,7,8,9,10], next: 'enemy'}
+      { rolls: [1,2,3,4,5], text: 'Friend', next: 'friend' },
+      { rolls: [6,7,8,9,10], text: 'Enemy', next: 'enemy' }
     ],
     friend: [
-      { name: 'Like a big brother/sister to you', numbers: [1], next: null },
-      { name: 'Like a kid sister/brother to you', numbers: [2], next: null },
-      { name: 'A teacher or mentor', numbers: [3], next: null },
-      { name: 'A partner or co-worker', numbers: [4], next: null },
-      { name: 'An old lover (choose which one)', numbers: [5], next: null },
-      { name: 'An old enemy (choose which one)', numbers: [6], next: null },
-      { name: 'Like a foster parent to you', numbers: [7], next: null },
-      { name: 'A relative', numbers: [8], next: null },
-      { name: 'Reconnect with an old childhood friend', numbers: [9], next: null },
-      { name: 'Met through a common interest', numbers: [10], next: null },
+      { rolls: [1], text: 'Like a big brother/sister to you' },
+      { rolls: [2], text: 'Like a kid sister/brother to you' },
+      { rolls: [3], text: 'A teacher or mentor' },
+      { rolls: [4], text: 'A partner or co-worker' },
+      { rolls: [5], text: 'An old lover (choose which one)' },
+      { rolls: [6], text: 'An old enemy (choose which one)' },
+      { rolls: [7], text: 'Like a foster parent to you' },
+      { rolls: [8], text: 'A relative' },
+      { rolls: [9], text: 'Reconnect with an old childhood friend' },
+      { rolls: [10], text: 'Met through a common interest' },
     ],
     enemy: [
-      { name: 'Ex friend', numbers: [1], next: 'cause' },
-      { name: 'Ex lover', numbers: [2], next: 'cause' },
-      { name: 'Relative', numbers: [3], next: 'cause' },
-      { name: 'Childhood enemy', numbers: [4], next: 'cause' },
-      { name: 'Person working for you', numbers: [5], next: 'cause' },
-      { name: 'Person you work for', numbers: [6], next: 'cause' },
-      { name: 'Partner or co-worker', numbers: [7], next: 'cause' },
-      { name: 'Booster gang member', numbers: [8], next: 'cause' },
-      { name: 'Corporate Exec', numbers: [9], next: 'cause' },
-      { name: 'Government Official ', numbers: [10], next: 'cause' }
+      { rolls: [1], text: 'Ex friend', next: 'cause' },
+      { rolls: [2], text: 'Ex lover', next: 'cause' },
+      { rolls: [3], text: 'Relative', next: 'cause' },
+      { rolls: [4], text: 'Childhood enemy', next: 'cause' },
+      { rolls: [5], text: 'Person working for you', next: 'cause' },
+      { rolls: [6], text: 'Person you work for', next: 'cause' },
+      { rolls: [7], text: 'Partner or co-worker', next: 'cause' },
+      { rolls: [8], text: 'Booster gang member', next: 'cause' },
+      { rolls: [9], text: 'Corporate Exec', next: 'cause' },
+      { rolls: [10], text: 'Government Official ', next: 'cause' }
     ],
     cause: [
-      { name: 'Caused the other to lose face or status', numbers: [1], next: 'fracked' },
-      { name: 'Caused the loss of a lover, friend or relative ', numbers: [2], next: 'fracked' },
-      { name: 'Caused a major humiliation ', numbers: [3], next: 'fracked' },
-      { name: 'Accused the other of cowardice or some other personal flaw ', numbers: [4], next: 'fracked' },
-      { name: 'Caused a physical disability: (Roll 1D6. 1=2 lose eye. 3-4=lose arm. 5-6=badly scarred)', numbers: [5], next: 'fracked' },
-      { name: 'Deserted or betrayed the other ', numbers: [6], next: 'fracked' },
-      { name: 'Turned down other\'s offer of job or romantic involvement ', numbers: [7], next: 'fracked' },
-      { name: 'You just didn\'t like each other', numbers: [8], next: 'fracked' },
-      { name: 'Was a romantic rival ', numbers: [9], next: 'fracked' },
-      { name: 'Foiled a plan of the other\'s  ', numbers: [10], next: 'fracked' }
+      { rolls: [1], text: 'Caused the other to lose face or status', next: 'fracked' },
+      { rolls: [2], text: 'Caused the loss of a lover, friend or relative', next: 'fracked' },
+      { rolls: [3], text: 'Caused a major humiliation', next: 'fracked' },
+      { rolls: [4], text: 'Accused the other of cowardice or some other personal flaw', next: 'fracked' },
+      { rolls: [5], text: 'Caused a physical disability', next: 'disability', nextDie: 6 },
+      { rolls: [6], text: 'Deserted or betrayed the other', next: 'fracked' },
+      { rolls: [7], text: 'Turned down other\'s offer of job or romantic involvement', next: 'fracked' },
+      { rolls: [8], text: 'You just didn\'t like each other', next: 'fracked' },
+      { rolls: [9], text: 'Was a romantic rival', next: 'fracked' },
+      { rolls: [10], text: 'Foiled a plan of the other\'s', next: 'fracked' }
+    ],
+    disability: [
+      { rolls: [1,2], text: 'Lose eye', next: 'fracked'},
+      { rolls: [3,4], text: 'Lose arm', next: 'fracked'},
+      { rolls: [5,6], text: 'Badly scarred', next: 'fracked'},
     ],
     fracked: [
-      { name: 'They hate you', numbers: [1,2,3,4], next: 'enemyAbout' },
-      { name: 'You hate them', numbers: [5,6,7], next: 'enemyAbout' },
-      { name: 'The feeling\'s mutual', numbers: [8,9,10], next: 'enemyAbout' }
+      { rolls: [1,2,3,4], text: 'They hate you', next: 'enemyAbout' },
+      { rolls: [5,6,7], text: 'You hate them', next: 'enemyAbout' },
+      { rolls: [8,9,10], text: 'The feeling\'s mutual', next: 'enemyAbout' }
     ],
     enemyAbout: [
-      { name: 'Go into a murderous killing rage and rip his face off!', numbers: [1,2], next: 'againstYou' },
-      { name: 'Avoid the scum', numbers: [3,4], next: 'againstYou' },
-      { name: 'Backstab him indirectly', numbers: [5,6], next: 'againstYou' },
-      { name: 'Ignore the scum', numbers: [7,8], next: 'againstYou' },
-      { name: 'Rip into him verbally', numbers: [9,10], next: 'againstYou' }
+      { rolls: [1,2], text: 'Go into a murderous killing rage and rip his face off!', next: 'againstYou' },
+      { rolls: [3,4], text: 'Avoid the scum', next: 'againstYou' },
+      { rolls: [5,6], text: 'Backstab him indirectly', next: 'againstYou' },
+      { rolls: [7,8], text: 'Ignore the scum', next: 'againstYou' },
+      { rolls: [9,10], text: 'Rip into him verbally', next: 'againstYou' }
     ],
     againstYou: [
-      { name: 'Just himself', numbers: [1,2,3], next: null },
-      { name: 'Himself and a few friends', numbers: [4,5], next: null },
-      { name: 'An entire Gang', numbers: [6,7], next: null },
-      { name: 'A small Corporation', numbers: [8], next: null },
-      { name: 'A large Corporation', numbers: [9], next: null },
-      { name: 'An entire Government Agency', numbers: [10], next: null }
+      { rolls: [1,2,3], text: 'Just himself' },
+      { rolls: [4,5], text: 'Himself and a few friends' },
+      { rolls: [6,7], text: 'An entire Gang' },
+      { rolls: [8], text: 'A small Corporation' },
+      { rolls: [9], text: 'A large Corporation' },
+      { rolls: [10], text: 'An entire Government Agency' }
     ],
-
-
-
+    romance: [
+      { rolls: [1,2,3,4], text: 'Happy love affair' },
+      { rolls: [5], text: 'Tragic love affair', next: 'tragicRomance' },
+      { rolls: [6,7], text: 'Love affair with problems', next: 'problematicRomance' },
+      { rolls: [8,9,10], text: 'Fast Affairs and Hot Dates' },
+    ],
+    tragicRomance: [
+      { rolls: [1], text: 'Lover died in accident', next: 'mutualFeelings' },
+      { rolls: [2], text: 'Lover mysteriously vanished', next: 'mutualFeelings' },
+      { rolls: [3], text: 'It didn\'t work out', next: 'mutualFeelings' },
+      { rolls: [4], text: 'A personal goal or vendetta came between you', next: 'mutualFeelings' },
+      { rolls: [5], text: 'Lover kidnapped', next: 'mutualFeelings' },
+      { rolls: [6], text: 'Lover went insane', next: 'mutualFeelings' },
+      { rolls: [7], text: 'Lover committed suicide', next: 'mutualFeelings' },
+      { rolls: [8], text: 'Lover killed in a fight', next: 'mutualFeelings' },
+      { rolls: [9], text: 'Rival cut you out of the action', next: 'mutualFeelings' },
+      { rolls: [10], text: 'Lover imprisoned or exiled', next: 'mutualFeelings' },
+    ],
+    mutualFeelings: [
+      { rolls: [1], text: 'They still love you' },
+      { rolls: [2], text: 'You still love them' },
+      { rolls: [3], text: 'You still love each other' },
+      { rolls: [4], text: 'You hate them' },
+      { rolls: [5], text: 'They hate you' },
+      { rolls: [6], text: 'You hate each other' },
+      { rolls: [7], text: 'You\'re friends' },
+      { rolls: [8], text: 'No feeling\'s either way; it\'s over' },
+      { rolls: [9], text: 'You like them, they hate you' },
+      { rolls: [10], text: 'They like you, you hate them' }
+    ],
+    problematicRomance: [
+      { rolls: [1], text: 'Your lover\'s friends/family hate you' },
+      { rolls: [2], text: 'Your lover\'s friends/family would use any means to get rid of you' },
+      { rolls: [3], text: 'Your friends/family hate your lover' },
+      { rolls: [4], text: 'One of you has a romantic rival' },
+      { rolls: [5], text: 'You are separated in some way' },
+      { rolls: [6], text: 'You fight constantly' },
+      { rolls: [7], text: 'You\'re professional rivals' },
+      { rolls: [8], text: 'One of you is insanely jealous' },
+      { rolls: [9], text: 'One of you is \"messing around\"' },
+      { rolls: [10], text: 'You have conflicting backgrounds and families' }
+    ]
   }
 }
-/* { name: '', numbers: [], next: ''},
-*/
