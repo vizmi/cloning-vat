@@ -61,9 +61,6 @@ story 3 - Lifepath
   - childhood env
   - siblings
 - motivations
-
------- this is where we are at ---------------------------------
-
 - lifepath
   - Roll 2D6+16 to determine your character's age, or pick any age 16 or greater - rerolls lifepath
   - for every year, roll d10:
@@ -75,13 +72,20 @@ story 3 - Lifepath
   - option to reroll the whole lifepath
   - for all year, do the rolls and show the result (with the option of adding notes)
 
-
------ MINIMUM VIABLE PRODUCT -----------------------------------
-
+------ this is where we are at --------------------------------
+----- MINIMUM VIABLE PRODUCT ----------------------------------
 
 story 4 - Add login, list of characters page and some server side stuff with it
 story 5 - Equipment
 story 6 - cyber stuff
+
+----- Technological debt --------------------------------------
+
+- paging is funny/handmade. Potential replacements:
+  - vue router
+  - bulma paging hack
+  - bulma card
+  - bulma menu
 
 ----- Other notes ---------------------------------------------
 

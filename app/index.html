@@ -39,35 +39,35 @@
               </div>
               <hr>
               <h4 class="title is-4"> Stats </h4>
-              <div class="content columns is-multiline">
-                <div class="column is-one-third-tablet is-one-quarter-desktop" v-for="(s, i) in static.stats" :key="i">
-                  <spinner :label="i" :label-width="80"
+              <div class="columns is-multiline">
+                <div class="column is-narrow" v-for="(s, i) in static.stats" :key="i">
+                  <spinner :label="i" :label-width="200"
                     :min="1" :max="Math.min(10, char.stats[i] + cpLeft)" :step="1"
                     v-model:value="char.stats[i]">
                   </spinner>
                 </div>
-                <div class="column is-one-third-tablet is-one-quarter-desktop">
-                  <spinner label="Run" read-only :label-width="80" :value="run">
+                <div class="column is-narrow">
+                  <spinner label="Run" read-only :label-width="200" :value="run">
                   </spinner>
                 </div>
-                <div class="column is-one-third-tablet is-one-quarter-desktop">
-                  <spinner label="Leap" read-only :label-width="80" :value="leap">
+                <div class="column is-narrow">
+                  <spinner label="Leap" read-only :label-width="200" :value="leap">
                   </spinner>
                 </div>
-                <div class="column is-one-third-tablet is-one-quarter-desktop">
-                  <spinner label="Lift" read-only :label-width="80" :value="lift">
+                <div class="column is-narrow">
+                  <spinner label="Lift" read-only :label-width="200" :value="lift">
                   </spinner>
                 </div>
-                <div class="column is-one-third-tablet is-one-quarter-desktop">
-                  <spinner label="Save" read-only :label-width="80" :value="char.stats.BODY">
+                <div class="column is-narrow">
+                  <spinner label="Save" read-only :label-width="200" :value="char.stats.BODY">
                   </spinner>
                 </div>
-                <div class="column is-one-third-tablet is-one-quarter-desktop">
-                  <spinner label="BTM" read-only :label-width="80" :value="btm">
+                <div class="column is-narrow">
+                  <spinner label="BTM" read-only :label-width="200" :value="btm">
                   </spinner>
                 </div>
               </div>
-              <hr>
+
               <div><strong>{{cpLeft}}&nbsp;</strong> points remaining </div>
             </div>
 
@@ -82,64 +82,59 @@
               </div>
               <hr>
 
-              <div class="columns" v-if="typeof char.role !== 'undefined'">
+              <div v-if="typeof char.role !== 'undefined'">
 
-                <div class="column is-half">
-                  <h4 class="title is-4"> Career skills </h4>
-                  <div class="columns">
-                    <div class="column">
-                      <spinner :label="static.roles[char.role].ability" :label-width="200"
-                        :min="1" :max="Math.min(10, char.ability + careerSkillPointsLeft)" v-model:value="char.ability">
-                      </spinner>
-                    </div>
+                <h4 class="title is-4"> Career skills </h4>
+                <div class="columns is-multiline">
+                  <div class="column is-narrow">
+                    <spinner :label="static.roles[char.role].ability" :label-width="200"
+                      :min="1" :max="Math.min(10, char.ability + careerSkillPointsLeft)" v-model:value="char.ability">
+                    </spinner>
                   </div>
-                  <div class="columns" v-for="(s, i) in char.careerSkills" :key="s.id">
-                    <div class="column">
-                      <spinner :label="static.skills[s.id].name" :label-width="200"
-                        :max="Math.min(10, char.careerSkills[i].value + careerSkillPointsLeft)"
-                        v-model:value="char.careerSkills[i].value">
-                      </spinner>
-                    </div>
+                  <div class="column is-narrow" v-for="(s, i) in char.careerSkills" :key="s.id">
+                    <spinner :label="static.skills[s.id].name" :label-width="200"
+                      :max="Math.min(10, char.careerSkills[i].value + careerSkillPointsLeft)"
+                      v-model:value="char.careerSkills[i].value">
+                    </spinner>
                   </div>
-                  <div><strong>{{careerSkillPointsLeft}}&nbsp;</strong> points remaining </div>
+                </div>
+                <div><strong>{{careerSkillPointsLeft}}&nbsp;</strong> points remaining </div>
+                <hr>
+
+                <h4 class="title is-4"> Pickup skills </h4>
+                <div class="field is-horizontal">
+                  <div class="field-body">
+                    <p class="control">
+                      <span class="select">
+                        <select style="width: 317px;" @change="addPickupSkill">
+                          <option disabled selected value="-1"> Pick a new skill </option>
+                          <option v-for="s in pickupSkillsAvailable" :value="s.id">
+                            [{{s.stat}}] {{s.name}}
+                          </option>
+                        </select>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div class="columns is-multiline">
+                  <div class="column is-narrow" v-for="(s, i) in char.pickupSkills" :key="s.id">
+                    <spinner :label="static.skills[s.id].name" :label-width="200"
+                      :max="Math.min(10, char.pickupSkills[i].value + pickupSkillPointsLeft)"
+                      v-model:value="char.pickupSkills[i].value">
+                    </spinner>
+                  </div>
                 </div>
 
-                <div class="column is-half">
-                  <h4 class="title is-4"> Pickup skills </h4>
-                  <div class="field is-horizontal">
-                    <div class="field-body">
-                      <p class="control">
-                        <span class="select">
-                          <select style="width: 317px;" @change="addPickupSkill">
-                            <option disabled selected value="-1"> Pick a new skill </option>
-                            <option v-for="s in pickupSkillsAvailable" :value="s.id">
-                              [{{s.stat}}] {{s.name}}
-                            </option>
-                          </select>
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                  <div class="columns" v-for="(s, i) in char.pickupSkills" :key="s.id" >
-                    <div class="column">
-                      <spinner :label="static.skills[s.id].name" :label-width="200"
-                        :max="Math.min(10, char.pickupSkills[i].value + pickupSkillPointsLeft)"
-                        v-model:value="char.pickupSkills[i].value">
-                      </spinner>
-                    </div>
-                  </div>
-
-                  <div class="field is-horizontal">
-                    <div class="field-body">
-                      <div class="field">
-                        <div class="control">
-                          <button type="button" class="button is-info" @click="removeZeroPickupSkills"> Remove 0 Skills </button>
-                        </div>
+                <div class="field is-horizontal">
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control">
+                        <button type="button" class="button is-info" @click="removeZeroPickupSkills"> Remove 0 Skills </button>
                       </div>
                     </div>
                   </div>
-                  <div><strong> {{pickupSkillPointsLeft}} &nbsp;</strong> points remaining </div>
                 </div>
+                <div><strong> {{pickupSkillPointsLeft}} &nbsp;</strong> points remaining </div>
               </div>
             </div>
 
