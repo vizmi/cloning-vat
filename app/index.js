@@ -92,6 +92,10 @@ var app = new Vue({
         value: -1,
         people: -1,
         posession: -1
+      },
+      lifepath: {
+        age: 21,
+        events: []
       }
     }
   },
@@ -221,10 +225,25 @@ var app = new Vue({
           this.rollItem('motivation.posession');
           break;
 
+        case 'age':
+          var roll = this.d(6) + this.d(6)  + 16;
+          document.getElementById('age').value = roll;
+          this.char.lifepath.age = roll;
+          break;
+
+        case 'lifepath':
+          this.char.lifepath.events = [];
+          for (var a = 16; a <= this.char.lifepath.age; a++) {
+            var event = this.rollOnTree()
+            this.char.lifepath.events.push(event);
+          }
+          break;
+
         default:
           this.rollItem(what);
       }
     },
+
     rollItem: function(what) {
       var roll = this.d(10)-1;
       document.getElementById(what).value = roll;
