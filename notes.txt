@@ -73,6 +73,10 @@ story 3 - Lifepath
   - for all year, do the rolls and show the result (with the option of adding notes)
 
 ------ this is where we are at --------------------------------
+
+- export/import functionality using https://github.com/pieroxy/lz-string/
+- refactor lifepath and siblings: store numbers, decode display time. The tree is available.
+
 ----- MINIMUM VIABLE PRODUCT ----------------------------------
 
 story 4 - Add login, list of characters page and some server side stuff with it

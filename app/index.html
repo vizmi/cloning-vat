@@ -21,6 +21,7 @@
                 <a class="nav-item" @click="showing = 1" :class="{'is-active': showing === 1}"> Role and Skills </a>
                 <a class="nav-item" @click="showing = 2" :class="{'is-active': showing === 2}"> Style </a>
                 <a class="nav-item" @click="showing = 3" :class="{'is-active': showing === 3}"> Family </a>
+                <a class="nav-item" @click="showing = 4" :class="{'is-active': showing === 4}"> Motivation </a>
                 <a class="nav-item" @click="showing = 5" :class="{'is-active': showing === 5}"> Lifepath </a>
               </div>
             </nav>
@@ -301,7 +302,7 @@
                   <div v-if="char.siblings.length === 0">You are the only child</div>
                   <div class="content" v-if="char.siblings.length > 0">
                     <ul>
-                      <li v-for="s in char.siblings"> {{s}} </li>
+                      <li v-for="s in char.siblings"> {{ decodeRollTree('sibling', s, ' ') }} </li>
                     </ul>
                   </div>
 
@@ -419,7 +420,7 @@
                   <div class="content" v-if="char.lifepath.events.length > 0">
                     <dl>
                       <dt v-for="(e, i) in char.lifepath.events">
-                        <strong> {{i+16}}: </strong> {{e}}
+                        <strong> {{i+16}}: </strong> {{ decodeRollTree('lifePath', e, ' - ') }}
                       </dt>
                     </dl>
                   </div>

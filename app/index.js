@@ -190,21 +190,64 @@ var app = new Vue({
           break;
 
         case 'style':
-          this.rollItem('style.clothes');
-          this.rollItem('style.hair');
-          this.rollItem('style.affectations');
+          var roll = this.d(10)-1;
+          this.char.style.clothes = roll;
+          roll = this.d(10)-1;
+          this.char.style.hair = roll;
+          roll = this.d(10)-1;
+          this.char.style.affectations = roll;
+          break;
+
+        case 'style.clothes':
+          var roll = this.d(10)-1;
+          this.char.style.clothes = roll;
+          break;
+
+        case 'style.hair':
+          var roll = this.d(10)-1;
+          this.char.style.hair = roll;
+          break;
+
+        case 'style.affectations':
+          var roll = this.d(10)-1;
+          this.char.style.affectations = roll;
           break;
 
         case 'origin':
-          this.rollItem('origin');
+          var roll = this.d(10)-1;
+          this.char.origin = roll;
           this.char.language = -1;
           break;
 
         case 'family':
-          this.rollItem('family.rank');
-          this.rollItem('family.parents');
-          this.rollItem('family.status');
-          this.rollItem('family.childhood');
+          var roll = this.d(10)-1;
+          this.char.family.rank = roll;
+          roll = this.d(10)-1;
+          this.char.family.parents = roll;
+          roll = this.d(10)-1;
+          this.char.family.status = roll;
+          roll = this.d(10)-1;
+          this.char.family.childhood = roll;
+          break;
+
+        case 'family.rank':
+          var roll = this.d(10)-1;
+          this.char.family.rank = roll;
+          break;
+
+        case 'family.parents':
+          var roll = this.d(10)-1;
+          this.char.family.parents = roll;
+          break;
+
+        case 'family.status':
+          var roll = this.d(10)-1;
+          this.char.family.status = roll;
+          break;
+
+        case 'family.childhood':
+          var roll = this.d(10)-1;
+          this.char.family.childhood = roll;
           break;
 
         case 'siblings':
@@ -212,17 +255,47 @@ var app = new Vue({
           roll = this.d(10);
           if (roll < 8) {
             for (var i = 0; i < roll; i++) {
-              this.char.siblings.push(this.rollOnTree('sibling', ' '));
+              this.char.siblings.push(this.traverseRollTree('sibling'));
             }
           }
           break;
 
         case 'motivation':
-          this.rollItem('motivation.personality');
-          this.rollItem('motivation.person');
-          this.rollItem('motivation.value');
-          this.rollItem('motivation.people');
-          this.rollItem('motivation.posession');
+          var roll = this.d(10)-1;
+          this.char.motivation.personality = roll;
+          roll = this.d(10)-1;
+          this.char.motivation.person = roll;
+          roll = this.d(10)-1;
+          this.char.motivation.value = roll;
+          roll = this.d(10)-1;
+          this.char.motivation.people = roll;
+          roll = this.d(10)-1;
+          this.char.motivation.posession = roll;
+          break;
+
+        case 'motivation.personality':
+          var roll = this.d(10)-1;
+          this.char.motivation.personality = roll;
+          break;
+
+        case 'motivation.person':
+          var roll = this.d(10)-1;
+          this.char.motivation.person = roll;
+          break;
+
+        case 'motivation.value':
+          var roll = this.d(10)-1;
+          this.char.motivation.value = roll;
+          break;
+
+        case 'motivation.people':
+          var roll = this.d(10)-1;
+          this.char.motivation.people = roll;
+          break;
+
+        case 'motivation.posession':
+          var roll = this.d(10)-1;
+          this.char.motivation.posession = roll;
           break;
 
         case 'age':
@@ -234,28 +307,49 @@ var app = new Vue({
         case 'lifepath':
           this.char.lifepath.events = [];
           for (var a = 16; a <= this.char.lifepath.age; a++) {
-            var event = this.rollOnTree()
+            var event = this.traverseRollTree('lifePath')
             this.char.lifepath.events.push(event);
           }
           break;
-
-        default:
-          this.rollItem(what);
       }
     },
+    traverseRollTree(start, startDie = 10) {
+      const tree = this.static.rollTree;
+      var result = [];
+      var next = start;
+      var nextDie = startDie;
 
-    rollItem: function(what) {
-      var roll = this.d(10)-1;
-      document.getElementById(what).value = roll;
-      this.char[what] = roll;
+      while(next) {
+        var roll = this.d(nextDie);
+        var rolled = tree[next].findIndex(function(e) { return e.rolls.includes(roll); });
+        result.push(rolled);
+
+        var i = tree[next][rolled];
+        next = i.next;
+        nextDie = i.nextDie || 10;
+      }
+      return result;
     },
-    rollOnTree: function(start = 'lifePath', separator = ' - ') {
+    decodeRollTree(start, rolls, separator) {
+      const tree = this.static.rollTree;
+      var next = start;
+
+      var result = rolls.reduce(function(result, item) {
+        var i = tree[next][item];
+        next = i.next;
+        return result += i.text + separator;
+      }, '');
+
+      return result.slice(0, -separator.length);
+    },
+    rollOnTree_old: function(start = 'lifePath', separator = ' - ') {
       var result = '';
       var next = start;
       var nextDie = 10;
+
       while (next) {
         var roll = this.d(nextDie);
-        var rolled = this.static.rollTree[next].find(function(e) { return e.rolls.includes(roll); });
+        var rolled = this.static.rollTree[next].findIndex(function(e) { return e.rolls.includes(roll); });
         result += rolled.text  + separator;
         next = rolled.next;
         nextDie = rolled.nextDie ? rolled.nextDie : 10;
