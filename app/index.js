@@ -16,7 +16,7 @@ var app = new Vue({
         '   <button type="button" class="button is-static" :style="labelStyle"> {{label}} </button>' +
         '  </p>' +
         '  <p class="control">' +
-        '   <button type="button" v-if="!readOnly" class="button is-info" style="width: 40px;"' +
+        '   <button type="button" v-if="!readOnly" class="button is-primary" style="width: 40px;"' +
         '    @click="decrement" :disabled="value <= min">' +
         '    <i class="fa fa-minus" aria-hidden="true"></i>' +
         '   </button>' +
@@ -25,7 +25,7 @@ var app = new Vue({
         '   <button type="button" class="button is-static" :style="valueStyle"> {{value}} </button>' +
         '  </p>' +
         '  <p class="control">' +
-        '   <button type="button" v-if="!readOnly" class="button is-info" style="width: 40px;"' +
+        '   <button type="button" v-if="!readOnly" class="button is-primary" style="width: 40px;"' +
         '    @click="increment" :disabled="value >= max">' +
         '    <i class="fa fa-plus" aria-hidden="true"></i>' +
         '   </button>' +
@@ -54,7 +54,15 @@ var app = new Vue({
   el: '#app',
   data: {
     static: static,
-    showing: 0,
+    pages: [
+      'Stats',
+      'Role and Skills',
+      'Style',
+      'Family',
+      'Motivation',
+      'Lifepath'
+    ],
+    page: 0,
     char: {
       role: undefined,
       characterPoints: 60,
@@ -126,11 +134,11 @@ var app = new Vue({
     },
     careerSkillPointsLeft: function() {
       return 40 - this.char.ability -
-        this.char.careerSkills.reduce(function(acc, skill) { return acc + skill.value; }, 0);
+        this.char.careerSkills.reduce(function(acc, skill) { return acc + skill.v; }, 0);
     },
     pickupSkillPointsLeft: function() {
       return this.char.stats.INT + this.char.stats.REF -
-        this.char.pickupSkills.reduce(function(acc, skill) { return acc + skill.value; }, 0);;
+        this.char.pickupSkills.reduce(function(acc, skill) { return acc + skill.v; }, 0);;
     },
     pickupSkillsAvailable: function() {
       return this.static.skills.map(function(s, i) {
@@ -151,7 +159,7 @@ var app = new Vue({
       this.static.roles[newRole].skills.forEach(function(s) {
         this.char.careerSkills.push({
           id: s,
-          value: 0
+          v: 0
         });
       }, this);
     },
@@ -170,7 +178,7 @@ var app = new Vue({
     },
     pickupSkillPointsLeft: function() {
       while (this.pickupSkillPointsLeft < 0) {
-        this.char.pickupSkills.forEach(function(s) { s.value = Math.max(s.value - 1, 0); });
+        this.char.pickupSkills.forEach(function(s) { s.v = Math.max(s.v - 1, 0); });
       }
     }
   },
@@ -300,7 +308,6 @@ var app = new Vue({
 
         case 'age':
           var roll = this.d(6) + this.d(6)  + 16;
-          document.getElementById('age').value = roll;
           this.char.lifepath.age = roll;
           break;
 
@@ -342,31 +349,17 @@ var app = new Vue({
 
       return result.slice(0, -separator.length);
     },
-    rollOnTree_old: function(start = 'lifePath', separator = ' - ') {
-      var result = '';
-      var next = start;
-      var nextDie = 10;
-
-      while (next) {
-        var roll = this.d(nextDie);
-        var rolled = this.static.rollTree[next].findIndex(function(e) { return e.rolls.includes(roll); });
-        result += rolled.text  + separator;
-        next = rolled.next;
-        nextDie = rolled.nextDie ? rolled.nextDie : 10;
-      }
-      return result.slice(0, -separator.length);
-    },
     addPickupSkill: function(event) {
       var s = Number(event.target.value);
       this.char.pickupSkills.push({
         id: s,
-        value: 0
+        v: 0
       });
       event.target.value = -1;
     },
     removeZeroPickupSkills: function() {
       this.char.pickupSkills = this.char.pickupSkills.filter(function(s) {
-        return s.value > 0;
+        return s.v > 0;
       }, this);
     },
     originChanged: function() {

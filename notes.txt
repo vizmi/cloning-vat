@@ -75,21 +75,36 @@ story 3 - Lifepath
 ------ this is where we are at --------------------------------
 
 - export/import functionality using https://github.com/pieroxy/lz-string/
-- refactor lifepath and siblings: store numbers, decode display time. The tree is available.
+- download and require all framework items
+
 
 ----- MINIMUM VIABLE PRODUCT ----------------------------------
 
 story 4 - Add login, list of characters page and some server side stuff with it
+
+- server side aauth filter on all pages. base64 should be ok.
+  - unauthenticated users go to login page
+  - authenticated users go to main page
+- login page: simple login page, cloning vat picture in the background
+  - accepts google and facebook login tokens, no registration
+  - user id is email address
+- main page: list of characters user id has. Campaign management is a later phase, for now we only support chaacter generation/modification by user
+  - list of characters, edit and delete hover buttons/links
+  - "create new" option on top/bottom
+- character page (whatever we have now as index): "save" and "cancel" needs to be added
+
 story 5 - Equipment
 story 6 - cyber stuff
 
 ----- Technological debt --------------------------------------
 
-- paging is funny/handmade. Potential replacements:
-  - vue router
-  - bulma paging hack
-  - bulma card
-  - bulma menu
+- better paging/navigation
+  - Potential replacements:
+    - vue router
+    - bulma paging hack
+    - bulma card
+    - bulma menu
+  - to be done once we have the app level navigation figured out. Same design would be good enough
 
 ----- Other notes ---------------------------------------------
 

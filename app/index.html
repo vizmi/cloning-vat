@@ -15,19 +15,23 @@
       <section class="section">
         <div class="container">
           <div class="box">
-            <nav class="nav">
-              <div class="nav-left">
-                <a class="nav-item" @click="showing = 0" :class="{'is-active': showing === 0}"> Stats </a>
-                <a class="nav-item" @click="showing = 1" :class="{'is-active': showing === 1}"> Role and Skills </a>
-                <a class="nav-item" @click="showing = 2" :class="{'is-active': showing === 2}"> Style </a>
-                <a class="nav-item" @click="showing = 3" :class="{'is-active': showing === 3}"> Family </a>
-                <a class="nav-item" @click="showing = 4" :class="{'is-active': showing === 4}"> Motivation </a>
-                <a class="nav-item" @click="showing = 5" :class="{'is-active': showing === 5}"> Lifepath </a>
-              </div>
+            <nav class="pagination">
+              <a class="pagination-previous" :disabled="page === 0" @click="page -= 1">
+                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+              </a>
+              <a class="pagination-next" :disabled="page === pages.length - 1" @click="page += 1">
+                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+              </a>
+              <ul class="pagination-list">
+                <li v-for="(p,i) in pages">
+                  <a class="pagination-link" :class="{'is-current': page === i}" @click="page = i"> {{p}} </a>
+                </li>
+              </ul>
             </nav>
             <hr>
 
-            <div v-if="showing === 0">
+            <div v-if="page === 0">
+              <h4 class="title is-4"> Character points </h4>
               <div class="field is-grouped">
                   <p class="control">
                     <spinner label="Character points" :label-width="200" :min="10" :max="90" :step="5"
@@ -35,7 +39,7 @@
                     </spinner>
                   </p>
                   <p class="control">
-                    <button type="button" class="button is-info" @click="roll('cp')"> Roll </button>
+                    <button type="button" class="button" @click="roll('cp')"> Roll </button>
                   </p>
               </div>
               <hr>
@@ -72,11 +76,11 @@
               <div><strong>{{cpLeft}}&nbsp;</strong> points remaining </div>
             </div>
 
-            <div v-if="showing === 1">
+            <div v-if="page === 1">
               <h4 class="title is-4"> Role </h4>
               <div class="field has-addons">
                 <p class="control" v-for="(r, i) in static.roles" :key="i">
-                  <button class="button" :class="{'is-info': char.role === i}" @click="char.role = i">
+                  <button class="button" :class="{'is-primary': char.role === i}" @click="char.role = i">
                     {{r.name}}
                   </button>
                 </p>
@@ -94,8 +98,8 @@
                   </div>
                   <div class="column is-narrow" v-for="(s, i) in char.careerSkills" :key="s.id">
                     <spinner :label="static.skills[s.id].name" :label-width="200"
-                      :max="Math.min(10, char.careerSkills[i].value + careerSkillPointsLeft)"
-                      v-model:value="char.careerSkills[i].value">
+                      :max="Math.min(10, char.careerSkills[i].v + careerSkillPointsLeft)"
+                      v-model:value="char.careerSkills[i].v">
                     </spinner>
                   </div>
                 </div>
@@ -120,8 +124,8 @@
                 <div class="columns is-multiline">
                   <div class="column is-narrow" v-for="(s, i) in char.pickupSkills" :key="s.id">
                     <spinner :label="static.skills[s.id].name" :label-width="200"
-                      :max="Math.min(10, char.pickupSkills[i].value + pickupSkillPointsLeft)"
-                      v-model:value="char.pickupSkills[i].value">
+                      :max="Math.min(10, char.pickupSkills[i].v + pickupSkillPointsLeft)"
+                      v-model:value="char.pickupSkills[i].v">
                     </spinner>
                   </div>
                 </div>
@@ -130,7 +134,7 @@
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
-                        <button type="button" class="button is-info" @click="removeZeroPickupSkills"> Remove 0 Skills </button>
+                        <button type="button" class="button" @click="removeZeroPickupSkills"> Remove 0 Skills </button>
                       </div>
                     </div>
                   </div>
@@ -139,10 +143,10 @@
               </div>
             </div>
 
-            <div v-if="showing === 2">
+            <div v-if="page === 2">
               <div class="columns">
                 <div class="column is-7">
-                  <button type="button" class="button is-info is-pulled-right" @click="roll('style')"> Roll all </button>
+                  <button type="button" class="button is-pulled-right" @click="roll('style')"> Roll all </button>
                   <h4 class="title is-4"> Style </h4>
 
                   <div class="field">
@@ -156,7 +160,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('style.clothes')"> Roll </button>
+                      <button type="button" class="button" @click="roll('style.clothes')"> Roll </button>
                     </p>
                   </div>
 
@@ -171,7 +175,7 @@
                             </option>
                           </select>
                         </span>
-                        <button type="button" class="button is-info" @click="roll('style.hair')"> Roll </button>
+                        <button type="button" class="button" @click="roll('style.hair')"> Roll </button>
                       </p>
                   </div>
 
@@ -186,7 +190,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('style.affectations')"> Roll </button>
+                      <button type="button" class="button" @click="roll('style.affectations')"> Roll </button>
                     </p>
                   </div>
                 </div>
@@ -204,7 +208,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('origin')"> Roll </button>
+                      <button type="button" class="button" @click="roll('origin')"> Roll </button>
                     </p>
                   </div>
 
@@ -228,10 +232,10 @@
               </div>
             </div>
 
-            <div v-if="showing === 3">
+            <div v-if="page === 3">
               <div class="columns">
                 <div class="column is-7">
-                  <button type="button" class="button is-info is-pulled-right" @click="roll('family')"> Roll all </button>
+                  <button type="button" class="button is-pulled-right" @click="roll('family')"> Roll all </button>
                   <h4 class="title is-4"> Family </h4>
 
                   <div class="field">
@@ -245,7 +249,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('family.rank')"> Roll </button>
+                      <button type="button" class="button" @click="roll('family.rank')"> Roll </button>
                     </p>
                   </div>
 
@@ -260,7 +264,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('family.parents')"> Roll </button>
+                      <button type="button" class="button" @click="roll('family.parents')"> Roll </button>
                     </p>
                   </div>
 
@@ -275,7 +279,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('family.status')"> Roll </button>
+                      <button type="button" class="button" @click="roll('family.status')"> Roll </button>
                     </p>
                   </div>
 
@@ -290,13 +294,13 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('family.childhood')"> Roll </button>
+                      <button type="button" class="button" @click="roll('family.childhood')"> Roll </button>
                     </p>
                   </div>
                 </div>
 
                 <div class="column is-5">
-                  <button type="button" class="button is-info is-pulled-right" @click="roll('siblings')"> Roll all </button>
+                  <button type="button" class="button is-pulled-right" @click="roll('siblings')"> Roll all </button>
                   <h4 class="title is-4"> Siblings </h4>
 
                   <div v-if="char.siblings.length === 0">You are the only child</div>
@@ -311,11 +315,11 @@
               </div>
             </div>
 
-            <div v-if="showing === 4">
+            <div v-if="page === 4">
               <div class="columns">
                 <div class="column is-7">
 
-                  <button type="button" class="button is-info is-pulled-right" @click="roll('motivation')"> Roll all </button>
+                  <button type="button" class="button is-pulled-right" @click="roll('motivation')"> Roll all </button>
                   <h4 class="title is-4"> Motivation </h4>
 
                   <div class="field">
@@ -329,7 +333,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('motivation.personality')"> Roll </button>
+                      <button type="button" class="button" @click="roll('motivation.personality')"> Roll </button>
                     </p>
                   </div>
 
@@ -344,7 +348,7 @@
                             </option>
                           </select>
                         </span>
-                        <button type="button" class="button is-info" @click="roll('motivation.person')"> Roll </button>
+                        <button type="button" class="button" @click="roll('motivation.person')"> Roll </button>
                       </p>
                   </div>
 
@@ -359,7 +363,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('motivation.value')"> Roll </button>
+                      <button type="button" class="button" @click="roll('motivation.value')"> Roll </button>
                     </p>
                   </div>
 
@@ -374,7 +378,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('motivation.people')"> Roll </button>
+                      <button type="button" class="button" @click="roll('motivation.people')"> Roll </button>
                     </p>
                   </div>
 
@@ -389,7 +393,7 @@
                           </option>
                         </select>
                       </span>
-                      <button type="button" class="button is-info" @click="roll('motivation.posession')"> Roll </button>
+                      <button type="button" class="button" @click="roll('motivation.posession')"> Roll </button>
                     </p>
                   </div>
 
@@ -397,10 +401,10 @@
               </div>
             </div>
 
-            <div v-if="showing === 5">
+            <div v-if="page === 5">
               <div class="columns">
                 <div class="column is-12">
-
+                  <h4 class="title is-4"> Age </h4>
                   <div class="field is-grouped">
                     <p class="control">
                       <spinner id="age" label="Age" :label-width="200" :min="16" :max="50"
@@ -408,12 +412,12 @@
                       </spinner>
                     </p>
                     <p class="control">
-                      <button type="button" class="button is-info" @click="roll('age')"> Roll </button>
+                      <button type="button" class="button" @click="roll('age')"> Roll </button>
                     </p>
                   </div>
                   <hr>
 
-                  <button type="button" class="button is-info is-pulled-right" @click="roll('lifepath')"> Roll </button>
+                  <button type="button" class="button is-pulled-right" @click="roll('lifepath')"> Roll </button>
                   <h4 class="title is-4"> Lifepath </h4>
 
                   <div v-if="char.lifepath.events.length === 0"> No events to show </div>
