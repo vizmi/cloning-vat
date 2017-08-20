@@ -23,5 +23,8 @@
     "gulp-connect": "^5.0.0"
   },
   "dependencies": {
+  },
+  "scripts": {
+  	"start": "node ./node_modules/gulp/bin/gulp.js"
   }
 }

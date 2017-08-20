@@ -16,6 +16,7 @@ gulp.task('reload', function () {
 // start the server with livereload
 gulp.task('dev-server', function() {
   connect.server({
+  	port: 80,
     root: 'app',
     livereload: true
   });
