@@ -74,8 +74,14 @@ story 3 - Lifepath
 
 ------ this is where we are at --------------------------------
 
+- deployment to RedHat OpenShift
+ - production server stuff (connect static maybe?)
+ - how to run dev/prod server depending on NODE_ENV
+ - figure out docker images, etc on the linux VM
+ - deploy prod to openshift
+
 - export/import functionality using https://github.com/pieroxy/lz-string/
-- download and require all framework items
+- download and require all framework items for working offline
 
 
 ----- MINIMUM VIABLE PRODUCT ----------------------------------
