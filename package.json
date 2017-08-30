@@ -4,7 +4,8 @@
   "description": "Cyberpunk 2020 Character Generator",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "start": "node index"
   },
   "repository": {
     "type": "git",
@@ -19,12 +20,17 @@
   "author": "vizmi",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-connect": "^5.0.0"
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1"
   },
   "dependencies": {
-  },
-  "scripts": {
-  	"start": "node ./node_modules/gulp/bin/gulp.js"
+    "compression": "^1.7.0",
+    "connect": "^3.6.3",
+    "errorhandler": "^1.5.0",
+    "http": "0.0.0",
+    "morgan": "^1.8.2",
+    "path": "^0.12.7",
+    "serve-favicon": "^2.4.3",
+    "serve-static": "^1.12.4"
   }
 }

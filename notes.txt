@@ -72,11 +72,18 @@ story 3 - Lifepath
   - option to reroll the whole lifepath
   - for all year, do the rolls and show the result (with the option of adding notes)
 
------- this is where we are at --------------------------------
 
 - deployment to RedHat OpenShift
  - production server stuff (connect static maybe?)
  - how to run dev/prod server depending on NODE_ENV
+
+------ this is where we are at --------------------------------
+
+ - rewrap build process in gulp:
+  - download framework code
+  - tree shaking
+  - minify
+  - uglify
  - figure out docker images, etc on the linux VM
  - deploy prod to openshift
 
