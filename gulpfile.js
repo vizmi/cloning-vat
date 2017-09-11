@@ -17,4 +17,10 @@ gulp.task('font',function() {
   return gulp.src(['node_modules/font-awesome/fonts/**'])
     .pipe(gulp.dest('app/fonts'));
 });
-gulp.task('default', ['css', 'font']);
+
+gulp.task('asset',function() {
+  return gulp.src(['src/index.html', 'src/favicon.ico'])
+    .pipe(gulp.dest('app'));
+});
+
+gulp.task('default', ['css', 'font', 'asset']);
