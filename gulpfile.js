@@ -1,26 +1,20 @@
-var gulp = require('gulp'),
-  connect = require('gulp-connect'),
-  fs = require("fs");
+const gulp = require('gulp'),
+  fs = require("fs"),
+  cleanCSS = require('gulp-clean-css'),
+  concatCSS = require('gulp-concat-css'),
+  sourcemaps = require('gulp-sourcemaps');
 
-// watch the html files and invoke reload
-gulp.task('watch', function () {
-  gulp.watch(['./app/*'], ['reload']);
+gulp.task('css',function() {
+  return gulp.src(['node_modules/font-awesome/css/font-awesome.min.css', 'node_modules/bulma/css/bulma.css'])
+    .pipe(sourcemaps.init())
+    .pipe(concatCSS('index.css'))
+    .pipe(cleanCSS({compatibility: '*'}))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('app'));
 });
 
-// send reload to server when the html changes
-gulp.task('reload', function () {
-  gulp.src('./app/*')
-    .pipe(connect.reload());
+gulp.task('font',function() {
+  return gulp.src(['node_modules/font-awesome/fonts/**'])
+    .pipe(gulp.dest('app/fonts'));
 });
-
-// start the server with livereload
-gulp.task('dev-server', function() {
-  connect.server({
-    port: 80,
-    root: 'app',
-    livereload: true
-  });
-});
-
-// default task = fire dev server and watch files
-gulp.task('default', ['dev-server', 'watch']);
+gulp.task('default', ['css', 'font']);
