@@ -1,3 +1,7 @@
+import options from './options.js';
+import Vue from 'vue/dist/vue.esm';
+//import Vue from 'vue'; //this should work once we figured out the template compilation
+
 var app = new Vue({
   components: {
     'spinner': {
@@ -53,7 +57,7 @@ var app = new Vue({
   },
   el: '#app',
   data: {
-    static: static,
+    options: options,
     pages: [
       'Stats',
       'Role and Skills',
@@ -141,7 +145,7 @@ var app = new Vue({
         this.char.pickupSkills.reduce(function(acc, skill) { return acc + skill.v; }, 0);;
     },
     pickupSkillsAvailable: function() {
-      return this.static.skills.map(function(s, i) {
+      return this.options.skills.map(function(s, i) {
         return { id: i, stat: s.stat, name: s.name };
       }, this).filter(function(s, i) {
         return !(
@@ -156,7 +160,7 @@ var app = new Vue({
       this.char.ability = 1;
       this.char.careerSkills = [];
       this.char.pickupSkills = [];
-      this.static.roles[newRole].skills.forEach(function(s) {
+      this.options.roles[newRole].skills.forEach(function(s) {
         this.char.careerSkills.push({
           id: s,
           v: 0
@@ -321,7 +325,7 @@ var app = new Vue({
       }
     },
     traverseRollTree(start, startDie = 10) {
-      const tree = this.static.rollTree;
+      const tree = this.options.rollTree;
       var result = [];
       var next = start;
       var nextDie = startDie;
@@ -338,7 +342,7 @@ var app = new Vue({
       return result;
     },
     decodeRollTree(start, rolls, separator) {
-      const tree = this.static.rollTree;
+      const tree = this.options.rollTree;
       var next = start;
 
       var result = rolls.reduce(function(result, item) {

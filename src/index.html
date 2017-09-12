@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="index.css">
     <title> Cyberpunk 2020 Character Generator </title>
-    <script src="https://unpkg.com/vue" defer></script>
-    <script src="./data.js" defer></script>
-    <script src="./index.js" defer></script>
+    <!--script src="https://unpkg.com/vue" defer></script>
+    <script src="./data.js" defer></script-->
+    <script src="index.js" defer></script>
 
   </head>
   <body>
@@ -44,7 +44,7 @@
               <hr>
               <h4 class="title is-4"> Stats </h4>
               <div class="columns is-multiline">
-                <div class="column is-narrow" v-for="(s, i) in static.stats" :key="i">
+                <div class="column is-narrow" v-for="(s, i) in options.stats" :key="i">
                   <spinner :label="i" :label-width="200"
                     :min="1" :max="Math.min(10, char.stats[i] + cpLeft)" :step="1"
                     v-model:value="char.stats[i]">
@@ -78,7 +78,7 @@
             <div v-if="page === 1">
               <h4 class="title is-4"> Role </h4>
               <div class="field has-addons">
-                <p class="control" v-for="(r, i) in static.roles" :key="i">
+                <p class="control" v-for="(r, i) in options.roles" :key="i">
                   <button class="button" :class="{'is-primary': char.role === i}" @click="char.role = i">
                     {{r.name}}
                   </button>
@@ -91,12 +91,12 @@
                 <h4 class="title is-4"> Career skills </h4>
                 <div class="columns is-multiline">
                   <div class="column is-narrow">
-                    <spinner :label="static.roles[char.role].ability" :label-width="200"
+                    <spinner :label="options.roles[char.role].ability" :label-width="200"
                       :min="1" :max="Math.min(10, char.ability + careerSkillPointsLeft)" v-model:value="char.ability">
                     </spinner>
                   </div>
                   <div class="column is-narrow" v-for="(s, i) in char.careerSkills" :key="s.id">
-                    <spinner :label="static.skills[s.id].name" :label-width="200"
+                    <spinner :label="options.skills[s.id].name" :label-width="200"
                       :max="Math.min(10, char.careerSkills[i].v + careerSkillPointsLeft)"
                       v-model:value="char.careerSkills[i].v">
                     </spinner>
@@ -122,7 +122,7 @@
                 </div>
                 <div class="columns is-multiline">
                   <div class="column is-narrow" v-for="(s, i) in char.pickupSkills" :key="s.id">
-                    <spinner :label="static.skills[s.id].name" :label-width="200"
+                    <spinner :label="options.skills[s.id].name" :label-width="200"
                       :max="Math.min(10, char.pickupSkills[i].v + pickupSkillPointsLeft)"
                       v-model:value="char.pickupSkills[i].v">
                     </spinner>
@@ -154,7 +154,7 @@
                       <span class="select">
                         <select id="style.clothes" v-model="char.style.clothes">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.style.clothes" :value="i">
+                          <option v-for="(s, i) in options.style.clothes" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -169,7 +169,7 @@
                         <span class="select">
                           <select id="style.hair" v-model="char.style.hair">
                             <option disabled selected :value="-1"> Choose </option>
-                            <option v-for="(s, i) in static.style.hair" :value="i">
+                            <option v-for="(s, i) in options.style.hair" :value="i">
                               {{s}}
                             </option>
                           </select>
@@ -184,7 +184,7 @@
                       <span class="select">
                         <select id="style.affectations" v-model="char.style.affectations">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.style.affectations" :value="i">
+                          <option v-for="(s, i) in options.style.affectations" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -202,7 +202,7 @@
                       <span class="select">
                         <select id="origin" v-model="char.origin" @change="originChanged">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.origin" :value="i">
+                          <option v-for="(s, i) in options.origin" :value="i">
                             {{s.name}}
                           </option>
                         </select>
@@ -218,7 +218,7 @@
                         <span class="select">
                           <select id="language" v-model="char.language">
                             <option disabled selected :value="-1"> Choose </option>
-                            <option v-for="(s, i) in static.origin[char.origin].languages" :value="i">
+                            <option v-for="(s, i) in options.origin[char.origin].languages" :value="i">
                               {{s}}
                             </option>
                           </select>
@@ -243,7 +243,7 @@
                       <span class="select">
                         <select id="family.rank" v-model="char.family.rank">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.family.rank" :value="i">
+                          <option v-for="(s, i) in options.family.rank" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -258,7 +258,7 @@
                       <span class="select">
                         <select id="family.parents" v-model="char.family.parents">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.family.parents" :value="i">
+                          <option v-for="(s, i) in options.family.parents" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -273,7 +273,7 @@
                       <span class="select">
                         <select id="family.status" v-model="char.family.status">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.family.status" :value="i">
+                          <option v-for="(s, i) in options.family.status" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -288,7 +288,7 @@
                       <span class="select">
                         <select id="family.childhood" v-model="char.family.childhood">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.family.childhood" :value="i">
+                          <option v-for="(s, i) in options.family.childhood" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -327,7 +327,7 @@
                       <span class="select">
                         <select id="motivation.personality" v-model="char.motivation.personality">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.motivation.personality" :value="i">
+                          <option v-for="(s, i) in options.motivation.personality" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -342,7 +342,7 @@
                         <span class="select">
                           <select id="motivation.person" v-model="char.motivation.person">
                             <option disabled selected :value="-1"> Choose </option>
-                            <option v-for="(s, i) in static.motivation.person" :value="i">
+                            <option v-for="(s, i) in options.motivation.person" :value="i">
                               {{s}}
                             </option>
                           </select>
@@ -357,7 +357,7 @@
                       <span class="select">
                         <select id="motivation.value" v-model="char.motivation.value">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.motivation.value" :value="i">
+                          <option v-for="(s, i) in options.motivation.value" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -372,7 +372,7 @@
                       <span class="select">
                         <select id="motivation.people" v-model="char.motivation.people">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.motivation.people" :value="i">
+                          <option v-for="(s, i) in options.motivation.people" :value="i">
                             {{s}}
                           </option>
                         </select>
@@ -387,7 +387,7 @@
                       <span class="select">
                         <select id="motivation.posession" v-model="char.motivation.posession">
                           <option disabled selected :value="-1"> Choose </option>
-                          <option v-for="(s, i) in static.motivation.posession" :value="i">
+                          <option v-for="(s, i) in options.motivation.posession" :value="i">
                             {{s}}
                           </option>
                         </select>

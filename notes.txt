@@ -77,13 +77,18 @@ story 3 - Lifepath
  - production server stuff (connect static maybe?)
  - how to run dev/prod server depending on NODE_ENV
 
------- this is where we are at --------------------------------
 
  - rewrap build process in gulp:
   - download framework code
-  - tree shaking
-  - minify
-  - uglify
+  - minify/uglify css
+  - tree shaking js
+
+------ this is where we are at --------------------------------
+
+  - vue template compilation
+  - minify/uglify js (and maybe html)
+  - gulp watcher setup for different file types (css, ico, html, js) and probably reorganize some tasks
+
  - figure out docker images, etc on the linux VM
  - deploy prod to openshift
 
