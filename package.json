@@ -23,10 +23,12 @@
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "bulma": "^0.5.1",
+    "del": "^3.0.0",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.8.0",
-    "gulp-concat-css": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-sequence": "^0.4.6",
     "gulp-sourcemaps": "^2.6.1"
   },
   "dependencies": {

@@ -1,13 +1,19 @@
 const gulp = require('gulp'),
-  fs = require("fs"),
+  del = require('del'),
   cleanCSS = require('gulp-clean-css'),
-  concatCSS = require('gulp-concat-css'),
-  sourcemaps = require('gulp-sourcemaps');
+  concat = require('gulp-concat'),
+  sourcemaps = require('gulp-sourcemaps'),
+  sequence = require('gulp-sequence')
+ ;
+
+gulp.task('clean', function () {
+  return del(['app/**']);
+});
 
 gulp.task('css',function() {
   return gulp.src(['node_modules/font-awesome/css/font-awesome.min.css', 'node_modules/bulma/css/bulma.css'])
     .pipe(sourcemaps.init())
-    .pipe(concatCSS('index.css'))
+    .pipe(concat('index.css'))
     .pipe(cleanCSS({compatibility: '*'}))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('app'));
@@ -23,4 +29,4 @@ gulp.task('asset',function() {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('default', ['css', 'font', 'asset']);
+gulp.task('default', sequence('clean', ['css', 'font', 'asset']));
