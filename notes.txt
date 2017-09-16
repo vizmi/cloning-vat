@@ -82,13 +82,10 @@ story 3 - Lifepath
   - download framework code
   - minify/uglify css
   - tree shaking js
-
------- this is where we are at --------------------------------
-
   - vue template compilation
-  - minify/uglify js (and maybe html)
-  - gulp watcher setup for different file types (css, ico, html, js) and probably reorganize some tasks
-
+  - minify/uglify js
+------ this is where we are at --------------------------------
+  - watcher setup for different file types (css, ico, html, js) and probably reorganize some tasks
  - figure out docker images, etc on the linux VM
  - deploy prod to openshift
 

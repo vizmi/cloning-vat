@@ -31,7 +31,7 @@
                 </p>
             </div>
             <hr>
-            <h4 class="title is-4"> Stats </h4>
+            <h4 class="title is-4"> Statistics </h4>
             <div class="columns is-multiline">
               <div class="column is-narrow" v-for="(s, i) in options.stats" :key="i">
                 <spinner :label="i" :label-width="200"

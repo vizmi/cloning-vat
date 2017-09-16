@@ -4,9 +4,9 @@
   "description": "Cyberpunk 2020 Character Generator",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test",
     "start": "node index",
-    "build": "gulp"
+    "build": "rollup -c -w",
+    "devsrv": "run-p start build -rl"
   },
   "repository": {
     "type": "git",
@@ -23,19 +23,20 @@
   "devDependencies": {
     "browser-sync": "^2.18.13",
     "bulma": "^0.5.1",
-    "del": "^3.0.0",
+    "chokidar": "^1.7.0",
+    "cssnano": "^3.10.0",
     "font-awesome": "^4.7.0",
-    "gulp": "^3.9.1",
-    "gulp-clean-css": "^3.8.0",
-    "gulp-concat": "^2.6.1",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sourcemaps": "^2.6.1",
+    "npm-run-all": "^4.1.1",
+    "postcss-url": "^7.1.2",
+    "rollup": "^0.49.3",
+    "rollup-plugin-browsersync": "^0.2.4",
+    "rollup-plugin-copy": "^0.2.3",
     "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-postcss": "^0.5.5",
     "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
     "rollup-plugin-vue": "^2.4.2",
-    "rollup-stream": "^1.24.1",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0",
+    "uglify-es": "^3.1.0",
     "vue": "^2.4.2"
   },
   "dependencies": {
