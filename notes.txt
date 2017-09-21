@@ -84,13 +84,12 @@ story 3 - Lifepath
   - tree shaking js
   - vue template compilation
   - minify/uglify js
+  - watcher setup
 ------ this is where we are at --------------------------------
-  - watcher setup for different file types (css, ico, html, js) and probably reorganize some tasks
  - figure out docker images, etc on the linux VM
  - deploy prod to openshift
 
 - export/import functionality using https://github.com/pieroxy/lz-string/
-- download and require all framework items for working offline
 
 
 ----- MINIMUM VIABLE PRODUCT ----------------------------------

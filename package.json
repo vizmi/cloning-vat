@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "build": "rollup -c -w",
-    "devsrv": "run-p start build -rl"
+    "build": "rollup -c -w"
   },
   "repository": {
     "type": "git",
