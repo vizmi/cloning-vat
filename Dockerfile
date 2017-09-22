@@ -4,4 +4,4 @@ WORKDIR /app
 COPY . /app
 RUN ["npm", "install", "--production"]
 CMD ["node","index.js"]
-EXPOSE 80
+EXPOSE 8000
