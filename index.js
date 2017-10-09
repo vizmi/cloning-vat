@@ -1,6 +1,7 @@
 var join = require('path').join;
 
 var env = process.env.NODE_ENV || 'development';
+var port = process.env.PORT || 8000;
 var appPath = join(__dirname, 'app')
 
 var http = require('http');
@@ -24,5 +25,5 @@ app.use(logger('dev'));
 app.use(static(appPath, {
   index: 'index.html'
 }));
-http.createServer(app).listen(8000);
+http.createServer(app).listen(port);
 console.log('running as ' + env);
