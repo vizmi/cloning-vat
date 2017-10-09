@@ -2,14 +2,14 @@
 # from vanila debian image
 
 # make apt-get faster
-apt-get install netselect-apt
-netselect-apt stable
 nano /etc/sysctl.conf
 #append
     net.ipv6.conf.all.disable_ipv6 = 1
     ​net.ipv6.conf.default.disable_ipv6 = 1
     ​net.ipv6.conf.lo.disable_ipv6 = 1
 reboot
+apt-get install netselect-apt
+netselect-apt stable
 sudo apt-get update
 
 # samba
@@ -32,9 +32,26 @@ nano /etc/ssh/sshd_config
 rc-service sshd restart
 
 # nodejs
-apt-get install git sudo curl 
+apt-get install git sudo curl
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install nodejs
+apt-get install nodejs
+npm install n -g
+n latest
+npm install -g npm
+
+# shared folders
+apt-get install dkms build-essential linux-headers-amd64
+# Devices / Install guest additions
+mount /dev/sr0 /media/cdrom
+cd /media/cdrom
+./VBoxLinuxAdditions.run
+# mount the shared drive on the VM 'Devices'/'Shared folders'
+shutdown now
+# run this on the host machine
+# debian = VM name
+# shared = share name
+"C:\Program Files\Oracle\VirtualBox\VBoxManage" setextradata debian VBoxInternal2/SharedFoldersEnableSymlinksCreate/shared 1
+ls /media/sf_shared
 
 # docker
 apt-get install apt-transport-https ca-certificates gnupg2 software-properties-common

@@ -76,7 +76,6 @@ export default {
     { "name": "Melee", "stat": "REF", "choose": false },
     { "name": "Motorcycle", "stat": "REF", "choose": false },
     { "name": "Operate Heavy Machinery", "stat": "REF", "choose": false },
-    { "name": "Pilot", "stat": "REF", "choose": false },
     { "name": "Pilot (Gyro)", "stat": "REF", "choose": false },
     { "name": "Pilot (Fixed Wing)", "stat": "REF", "choose": false },
     { "name": "Pilot (Dirigible)", "stat": "REF", "choose": false },

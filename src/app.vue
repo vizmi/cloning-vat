@@ -10,9 +10,21 @@
             <a class="pagination-next" :disabled="page === pages.length - 1" @click="page += 1">
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </a>
+
             <ul class="pagination-list">
+              <li>
+                <div class="file">
+                  <label class="file-label">
+                    <input class="file-input" type="file" name="import" @change="importCharacter">
+                    <span class="pagination-link"> Import </span>
+                  </label>
+                </div>
+              </li>
               <li v-for="(p,i) in pages">
                 <a class="pagination-link" :class="{'is-current': page === i}" @click="page = i"> {{p}} </a>
+              </li>
+              <li>
+                <a class="pagination-link" @click="exportCharacter()"> Export </a>
               </li>
             </ul>
           </nav>
@@ -68,7 +80,7 @@
             <h4 class="title is-4"> Role </h4>
             <div class="field has-addons">
               <p class="control" v-for="(r, i) in options.roles" :key="i">
-                <button class="button" :class="{'is-primary': char.role === i}" @click="char.role = i">
+                <button class="button" :class="{'is-primary': char.role === i}" @click="setRole(i)">
                   {{r.name}}
                 </button>
               </p>
@@ -427,10 +439,11 @@
   </div>
 </template>
 
-
 <script>
   import options from './options.js';
   import spinner from './spinner.vue';
+  import LZString from 'lz-string';
+  import { saveAs } from 'file-saver';
 
   export default {
     name: 'app',
@@ -537,17 +550,6 @@
       }
     },
     watch: {
-      "char.role": function(newRole) {
-        this.char.ability = 1;
-        this.char.careerSkills = [];
-        this.char.pickupSkills = [];
-        this.options.roles[newRole].skills.forEach(function(s) {
-          this.char.careerSkills.push({
-            id: s,
-            v: 0
-          });
-        }, this);
-      },
       cpLeft: function() {
         while (this.cpLeft < 0) {
           this.char.stats.INT = Math.max(this.char.stats.INT - 1, 1);
@@ -568,6 +570,22 @@
       }
     },
     methods: {
+      setRole: function(newRole) {
+        if (newRole === this.char.role) {
+          return;
+        }
+        console.log('resetting the skills');
+        this.char.ability = 1;
+        this.char.careerSkills = [];
+        this.char.pickupSkills = [];
+        this.options.roles[newRole].skills.forEach(function(s) {
+          this.char.careerSkills.push({
+            id: s,
+            v: 0
+          });
+        }, this);
+        this.char.role = newRole;
+      },
       d: function(size) {
         return Math.floor(Math.random() * size + 1);
       },
@@ -749,6 +767,32 @@
       },
       originChanged: function() {
         this.char.language = -1;
+      },
+      importCharacter(event) {
+        var file = event.target.files[0];
+        var reader = new FileReader();
+        self = this;
+        reader.addEventListener('loadend', function() {
+          var compressed = reader.result;
+          var json = LZString.decompressFromUTF16(compressed);
+          console.log(json);
+          if (json === null) {
+            alert('file cannot be decoded');
+            return;
+          }
+          var char = JSON.parse(json);
+          self.$set(self, 'char', char);
+        });
+        reader.readAsText(file);
+      },
+      exportCharacter() {
+        var json = JSON.stringify(this.char);
+        console.log(json);
+        var compressed = LZString.compressToUTF16(json);
+        console.log(compressed);
+        var blob = new Blob([compressed], {type: 'text/plain;charset=utf-16'});
+        var fn = prompt('File name:', 'character.txt');
+        saveAs(blob, fn);
       }
     }
   }

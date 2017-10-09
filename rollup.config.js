@@ -1,6 +1,7 @@
 import vue from 'rollup-plugin-vue';
 import replace from 'rollup-plugin-replace';
 import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
 import { minify } from 'uglify-es';
 import postcss from 'rollup-plugin-postcss';
@@ -21,6 +22,11 @@ export default {
     vue(),
     replace({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development') }),
     resolve({ browser: true }),
+    commonjs({
+      namedExports: {
+        'lz-string': ['LZString']
+      }
+    }),
     uglify({}, minify),
     // css (+font) files
     postcss({
@@ -35,11 +41,14 @@ export default {
     }),
     // copy static resources
     copy({
-      "src/index.html": "app/index.html",
-      "src/favicon.ico": "app/favicon.ico",
+      'src/index.html': 'app/index.html',
+      'src/favicon.ico': 'app/favicon.ico',
     }),
     browsersync({
-      server: 'app',
+      server: {
+        baseDir: 'app',
+        index: 'index.html'
+      },
       port: 80,
       watchOptions: {
         usePolling: true

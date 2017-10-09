@@ -21,6 +21,8 @@ var app = connect();
 app.use(compression());
 app.use(favicon(join(appPath, 'favicon.ico')))
 app.use(logger('dev'));
-app.use(static(appPath));
+app.use(static(appPath, {
+  index: 'index.html'
+}));
 http.createServer(app).listen(8000);
 console.log('running as ' + env);
