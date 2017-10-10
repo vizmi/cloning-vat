@@ -4,10 +4,10 @@
       <div class="container">
         <div class="box">
           <nav class="pagination">
-            <a class="pagination-previous" :disabled="page === 0" @click="page -= 1">
+            <a class="pagination-previous" :disabled="page === 0" @click="page = Math.max(0, page-1)">
               <i class="fa fa-chevron-left" aria-hidden="true"></i>
             </a>
-            <a class="pagination-next" :disabled="page === pages.length - 1" @click="page += 1">
+            <a class="pagination-next" :disabled="page === pages.length-1" @click="page = Math.min(pages.length-1, page+1)">
               <i class="fa fa-chevron-right" aria-hidden="true"></i>
             </a>
 
@@ -792,6 +792,7 @@
         console.log(compressed);
         var blob = new Blob([compressed], {type: 'text/plain;charset=utf-16'});
         var fn = prompt('File name:', 'character.txt');
+        if (fn === null) return;
         saveAs(blob, fn);
       }
     }
