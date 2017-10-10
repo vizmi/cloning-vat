@@ -108,16 +108,16 @@ export default {
     { "name": "Other TECH skill", "stat": "TECH", "choose": true }
   ],
   "roles": [
-    { "name": "Cop", "ability": "Authority", "skills": [ 23, 54, 13, 48, 30, 49, 57, 7, 11 ] },
-    { "name": "Rocker", "ability": "Charismatic Leadership", "skills": [ 23, 19, 1, 27, 49, 87, 11, 18, 16 ] },
-    { "name": "Solo", "ability": "Combat Sense", "skills": [ 23, 54, 49, 56, 57, 88, 65, 48, 67, 66 ] },
-    { "name": "Media", "ability": "Credibility", "skills": [ 23, 27, 30, 19, 13, 17, 11, 83, 14 ] },
-    { "name": "Nomad", "ability": "Family", "skills": [ 23, 3, 57, 65, 52, 71, 44, 49, 48 ] },
-    { "name": "Netrunner", "ability": "Interface", "skills": [ 23, 71, 29, 42, 74, 73, 27, 77, 39] },
-    { "name": "Techie", "ability": "Jury Rig", "skills": [ 23, 71, 74, 43, 29, 77, 81, 70, 88, 79] },
-    { "name": "Medtechie", "ability": "Medical Tech", "skills": [ 23, 71, 28, 29, 72, 36, 84, 45, 13] },
+    { "name": "Cop", "ability": "Authority", "skills": [ 23, 54, 13, 48, 29, 49, 57, 7, 11 ] },
+    { "name": "Rocker", "ability": "Charismatic Leadership", "skills": [ 23, 19, 1, 27, 49, 86, 11, 18, 16 ] },
+    { "name": "Solo", "ability": "Combat Sense", "skills": [ 23, 54, 49, 56, 57, 87, 64, 48, 66, 65 ] },
+    { "name": "Media", "ability": "Credibility", "skills": [ 23, 27, 29, 18, 13, 17, 11, 82, 14 ] },
+    { "name": "Nomad", "ability": "Family", "skills": [ 23, 3, 57, 64, 52, 70, 44, 49, 48 ] },
+    { "name": "Netrunner", "ability": "Interface", "skills": [ 23, 70, 29, 42, 73, 72, 27, 77, 39 ] },
+    { "name": "Techie", "ability": "Jury Rig", "skills": [ 23, 70, 73, 43, 29, 76, 80, 68, 87, 77 ] },
+    { "name": "Medtechie", "ability": "Medical Tech", "skills": [ 23, 70, 28, 29, 71, 36, 83, 45, 13 ] },
     { "name": "Corp", "ability": "Resources", "skills": [ 23, 13, 29, 36, 17, 18, 41, 1, 0 ] },
-    { "name": "Fixer", "ability": "Streetdeal", "skills": [ 23, 80, 54, 49, 57, 85, 86, 8, 18 ] }
+    { "name": "Fixer", "ability": "Streetdeal", "skills": [ 23, 79, 54, 49, 57, 84, 85, 8, 18 ] }
   ],
   "style": {
     "clothes": ["Biker leathers", "Blue jeans", "Corporate Suits", "Jumpsuits", "Miniskirts",
