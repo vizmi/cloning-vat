@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "build": "rollup -c -w"
+    "build": "node ./node_modules/rollup/bin/rollup -c -w"
   },
   "repository": {
     "type": "git",

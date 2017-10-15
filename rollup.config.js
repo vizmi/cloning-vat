@@ -50,13 +50,9 @@ export default {
         index: 'index.html'
       },
       port: 80,
-      watchOptions: {
-        usePolling: true
-      },
+      /* watchOptions: { usePolling: true }, */
       open: false
   })
-  ],
-  watch: {
-    chokidar: { usePolling: true }
-  },
+  ]
+  /*, watch: { chokidar: { usePolling: true } } */
 };

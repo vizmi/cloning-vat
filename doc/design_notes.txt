@@ -1,159 +1,45 @@
+UI redesign with https://vuetifyjs.com
 
-story 1 - Attributes
-
-- there are 9 attributes:
-  INT Intelligence
-  REF Reflexes
-  TECH Technical Ability
-  COOL Cool
-  ATTR Attractiveness
-  LUCK Luck
-  MA Movement Allowance
-  BODY Body
-  EMP Empathy
-- there are 3 ways to generate them, but for now we will support 2:
-  - roll 9d10 and assign them
-  - set the point limit and assign them
-  - [roll 9(d8+2), then assign the rolls]
-- calculated attributes
-  - RUN=MA*3
-  - Jump=RUN/4
-  - BTM is a BODY lookup:
-    2   -> 0
-    3-4 -> -1
-    5-7 -> -2
-    8-9 -> -3
-    10+ -> -4
-  - SAVE=BODY
-  - Lift = Body * 40 kg
-
-Implementation
-1. Top of the control is "How", bottom is the details
-2. How is basically
-  - an input field (number only, 40-80 range)
-  - a "Roll" button: rolls 9d10, sets the input to that value
-3. The details section has the 9 attributes (4-4-(1+calculated) layout), each attribute has
-  - short name
-  - label with the current value
-  - a plus and a minus button to set the value
-  - the plus buttons active only if the remaining Characer points are > 0
-
-
-story 2 - Skills
-
-- character has 40 points to distribute amongst a list of 10 skills (one of the being special ability)
-- minimum value is 0, max is 10
-- then the character has INT + REF spill point to distribute amongs any other skill except:
-  - career skills
-  - any other role's special skills
-
-story 3 - Lifepath
-
-- style
-  - roll for all button
-  - select/roll individual items
-- family background
-  - roll for all
-  - select/roll individual items
-  - family rank
-  - parents + [something happened to your parents]
-  - family status + [family tragedy]
-  - childhood env
+- characters are in local storage, LZString compressed. Key is name
+- vue-router for navigation between pages/steps
+- list of characters page https://vuetifyjs.com/components/cards
+  - List action: add character https://vuetifyjs.com/components/floating-action-buttons
+  - list summary: none
+  - Item actions:
+    - remove character
+    - edit character -> edit character page
+- character edit page:
+  - components:
+    - https://vuetifyjs.com/components/steppers
+    - save
+    - cancel
+  - basics step - form
+    - Name - text
+    - Age - slider
+    - Character points - slider, button to roll for it
+    - Role - Button toggle
+  - stats step - grid list? list?
+    - List actions: none
+    - list summary: cp left
+    - items:
+      - name
+      - slider
+  - career skills - grid list? list?
+    - List actions: none
+    - list summary: sp left
+    - items:
+      - name
+      - slider
+  - pickup skills - grid list? list?
+    - List actions: add pickup skill - opens pickup skill dialog w. filter by name, stat
+    - list summary: sp left
+    - items:
+      - name
+      - slider
+    - item actions: remove skill
+  - style
+  - origins
+  - family
   - siblings
-- motivations
-- lifepath
-  - Roll 2D6+16 to determine your character's age, or pick any age 16 or greater - rerolls lifepath
-  - for every year, roll d10:
-    1-3 Big Problems, Big Wins
-    4-6 Friends & Enemies
-    7-8 Romantic Involvement
-    9-10  Nothing Happened That Year
-
-  - option to reroll the whole lifepath
-  - for all year, do the rolls and show the result (with the option of adding notes)
-
-
-- deployment to RedHat OpenShift
- - production server stuff (connect static maybe?)
- - how to run dev/prod server depending on NODE_ENV
-
-
- - rewrap build process in gulp:
-  - download framework code
-  - minify/uglify css
-  - tree shaking js
-  - vue template compilation
-  - minify/uglify js
-  - watcher setup
- - figure out docker images, etc on the linux VM
- - deploy prod to openshift
-
-- export/import functionality using https://github.com/pieroxy/lz-string/
-
------ this is where we are at ---------------------------------
-
------ MINIMUM VIABLE PRODUCT ----------------------------------
-
-story 4 - Add login, list of characters page and some server side stuff with it
-
-- server side aauth filter on all pages. base64 should be ok.
-  - unauthenticated users go to login page
-  - authenticated users go to main page
-- login page: simple login page, cloning vat picture in the background
-  - accepts google and facebook login tokens, no registration
-  - user id is email address
-- main page: list of characters user id has. Campaign management is a later phase, for now we only support chaacter generation/modification by user
-  - list of characters, edit and delete hover buttons/links
-  - "create new" option on top/bottom
-- character page (whatever we have now as index): "save" and "cancel" needs to be added
-
-story 5 - Equipment
-story 6 - cyber stuff
-
------ Technological debt --------------------------------------
-
-- better paging/navigation
-  - Potential replacements:
-    - vue router
-    - bulma paging hack
-    - bulma card
-    - bulma menu
-  - to be done once we have the app level navigation figured out. Same design would be good enough
-
------ UX perspective ------------------------------------------
-
-what we need on different sceens:
-- navigation throught the process
-- general
-  - form for name, heroic level, role, age
-- stats
-  - list of stats (fixed), possibility to set a value for them
-  - display a summary info (stat points left)
-- skills
-  - career skills
-    - list of stats (fixed), possibility to set a value for them
-    - display a summary info (points left)
-  - pickup skills
-    - add/remove items form the list. Source list is long
-    - set list item values
-    - display a summary info (points left)
-  - others
-    - pick an item from a list
-    - randomly select list items
-    - randomize all items - summary action
-
-solutions:
-navigaton - one page per list
-list item info
-- points left
-list item actions
-- set value - for stat/skill
-- remove item - for pickup skill
-- randomize item - for style, etc
-list actions
-- randomize all (lifepath, etc)
-list summaries
-- points left
-- mutually exclusive w. list actions, can go the same place
-
------ Other notes ---------------------------------------------
+  - motivation
+  - lifepath
