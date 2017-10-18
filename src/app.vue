@@ -628,7 +628,7 @@
           'Lifepath',
           'Character sheet'
         ],
-        page: 6,
+        page: 0,
         char: {
           handle: '',
           story: '',
