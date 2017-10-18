@@ -8,7 +8,7 @@ import postcss from 'rollup-plugin-postcss';
 import cssnano from 'cssnano';
 import cssurl from 'postcss-url';
 import copy from 'rollup-plugin-copy';
-import browsersync from 'rollup-plugin-browsersync'
+import browsersync from 'rollup-plugin-browsersync';
 
 export default {
   input: 'src/index.js',
@@ -43,6 +43,7 @@ export default {
     copy({
       'src/index.html': 'app/index.html',
       'src/favicon.ico': 'app/favicon.ico',
+      'src/CyberPunk.gif': 'app/CyberPunk.gif',
     }),
     browsersync({
       server: {

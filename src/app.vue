@@ -433,18 +433,186 @@
             </div>
           </div>
 
+          <div v-if="page === 6">
+            <div class="columns">
+              <div class="column is-12">
+                <div id="charSheet">
+                  <div class="columns">
+                    <div class="column is-half">
+                      <div class="columns is-gapless is-multiline">
+                        <div class="column is-2 blackBox"><span>Handle</span></div>
+                        <div class="column is-10 entryField"><input v-model="char.handle"/></div>
+
+                        <div class="column is-1 blackBox"><span>Role</span></div>
+                        <div class="column is-11 plainText"><span class="bold" v-if="char.role">{{this.options.roles[char.role].name}}</span></div>
+
+                        <div class="column is-3 blackBox"><span>Character points</span></div>
+                        <div class="column is-1 entryField centered"><span>{{ char.characterPoints }}</span></div>
+                        <div class="column is-1"></div>
+                        <div class="column is-1 blackBox"><span>Age</span></div>
+                        <div class="column is-1 entryField centered"><span>{{ char.lifepath.age }}</span></div>
+                        <div class="column is-5"></div>
+
+                        <div class="column is-2 blackBox"><span>Stats</span></div>
+                        <div class="column is-10"></div>
+
+                        <template v-for="(value, key, index) in char.stats">
+                          <div class="column is-1 bold">{{key}}</div>
+                          <div class="column is-2">[ {{value}} ]</div>
+                        </template>
+
+                        <div class="column is-1 bold">Run</div>
+                        <div class="column is-2">[ {{run}} ]</div>
+
+                        <div class="column is-1 bold">Leap</div>
+                        <div class="column is-2">[ {{leap}} ]</div>
+
+                        <div class="column is-1 bold">Lift</div>
+                        <div class="column is-2">[ {{lift}} ]</div>
+
+                        <div class="column is-12">&nbsp;</div>
+
+                        <div class="column is-2 blackBox centered"><span>Save</span></div>
+                        <div class="column is-1"></div>
+                        <div class="column is-2 blackBox centered"><span>BTM</span></div>
+                        <div class="column is-7"></div>
+                        <div class="column is-2 entryField centered"><span class="bold">{{char.stats.BODY}}</span></div>
+                        <div class="column is-1"></div>
+                        <div class="column is-2 entryField centered"><span class="bold">{{btm}}</span></div>
+                        <div class="column is-7"></div>
+
+                        <div class="column is-12">&nbsp;</div>
+
+                      </div>
+                    </div>
+                    <div class="column is-half">
+                      <div class="columns is-gapless is-multiline">
+                        <div class="column is-4 blackBack"></div>
+                        <div class="column is-4 centered blackBack"><img src="CyberPunk.gif"></div>
+                        <div class="column is-4 blackBack"></div>
+
+                        <div class="column is-5">
+                          <div class="columns is-gapless is-multiline">
+
+                            <div class="column is-4 blackBox"><span>Skills</span></div>
+                            <div class="column is-8"></div>
+
+                            <div class="column is-12" v-if="char.role"><b>{{options.roles[char.role].ability}}:</b> {{char.ability}}</div>
+
+                            <template v-for="(s, i) in char.careerSkills">
+                              <div class="column is-12" v-if="s.v != 0"><b>{{options.skills[s.id].name}}:</b> {{s.v}}</div>
+                            </template>
+                            <template v-for="(s, i) in char.pickupSkills">
+                              <div class="column is-12" v-if="s.v != 0"><b>{{options.skills[s.id].name}}:</b> {{s.v}}</div>
+                            </template>
+
+                          </div>
+                        </div>
+                        <div class="column is-7">
+                          <div class="columns is-gapless is-multiline">
+                            <div class="column is-4 blackBox"><span>Motivation</span></div>
+                            <div class="column is-8"></div>
+                            <div class="column is-6 bold"><span>Personality</span></div>
+                            <div class="column is-6 plainText"><span>{{options.motivation.personality[char.motivation.personality]}}</span></div>
+                            <div class="column is-6 bold"><span>Person you value most</span></div>
+                            <div class="column is-6 plainText"><span>{{options.motivation.person[char.motivation.person]}}</span></div>
+                            <div class="column is-6 bold"><span>What do you value most?</span></div>
+                            <div class="column is-6 plainText"><span>{{options.motivation.value[char.motivation.value]}}</span></div>
+                            <div class="column is-6 bold"><span>How do you feel about most people?</span></div>
+                            <div class="column is-6 plainText"><span>{{options.motivation.people[char.motivation.people]}}</span></div>
+                            <div class="column is-6 bold"><span>Your most valued posession</span></div>
+                            <div class="column is-6 plainText"><span>{{options.motivation.posession[char.motivation.posession]}}</span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="columns">
+                    <div class="column is-third">
+                      <div class="columns is-gapless is-multiline">
+                        <div class="column is-3 blackBox"><span>Style</span></div>
+                        <div class="column is-8"></div>
+                        <div class="column is-4 bold"><span>Clothes</span></div>
+                        <div class="column is-8 plainText"><span>{{options.style.clothes[char.style.clothes]}}</span></div>
+                        <div class="column is-4 bold"><span>Hair</span></div>
+                        <div class="column is-8 plainText"><span>{{options.style.hair[char.style.hair]}}</span></div>
+                        <div class="column is-4 bold"><span>Affections</span></div>
+                        <div class="column is-8 plainText"><span>{{options.style.affectations[char.style.affectations]}}</span></div>
+                        <div class="column is-4 bold"><span>Ethnicity</span></div>
+                        <div class="column is-8 plainText"><span v-if="char.origin != -1">{{options.origin[char.origin].name}}</span></div>
+                        <div class="column is-4 bold"><span>Language</span></div>
+                        <div class="column is-8 plainText"><span v-if="char.origin != -1">{{options.origin[char.origin].languages[char.language]}}</span></div>
+                      </div>
+                    </div>
+                    <div class="column is-third">
+                      <div class="columns is-gapless is-multiline">
+                        <div class="column is-3 blackBox"><span>Family</span></div>
+                        <div class="column is-8"></div>
+                        <div class="column is-4 bold"><span>Family Rank</span></div>
+                        <div class="column is-8 plainText"><span>{{options.family.rank[char.family.rank]}}</span></div>
+                        <div class="column is-4 bold"><span>Parents</span></div>
+                        <div class="column is-8 plainText"><span>{{options.family.parents[char.family.parents]}}</span></div>
+                        <div class="column is-4 bold"><span>Family status </span></div>
+                        <div class="column is-8 plainText"><span>{{options.family.status[char.family.status]}}</span></div>
+                        <div class="column is-4 bold"><span>Childhood Rank</span></div>
+                        <div class="column is-8 plainText"><span>{{options.family.childhood[char.family.childhood]}}</span></div>
+                      </div>
+                    </div>
+                    <div class="column is-third">
+                      <div class="columns is-gapless is-multiline">
+                        <div class="column is-3 blackBox"><span>Siblings</span></div>
+                        <div class="column is-1"></div>
+                        <div class="column is-1 bold"><span><i class="fa fa-mars" aria-hidden="true"></i></span></div>
+                        <div class="column is-2 entryField centered"><span>{{siblingGenderCount(0)}}</span></div>
+                        <div class="column is-1"></div>
+                        <div class="column is-1 bold"><span><i class="fa fa-venus" aria-hidden="true"></i></span></div>
+                        <div class="column is-2 entryField centered"><span>{{siblingGenderCount(1)}}</span></div>
+                        <div class="column is-2"></div>
+
+                        <div class="column is-12" v-if="char.siblings.length === 0">You are the only child</div>
+                        <div class="content column is-12" v-if="char.siblings.length > 0">
+                          <ul>
+                            <li v-for="s in char.siblings"> {{ decodeRollTree('sibling', s, ' ') }} </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                    
+                  <div class="columns is-gapless is-multiline">
+                    <div class="column is-2 blackBox"><span>Life events</span></div>
+                    <div class="column is-10"></div>
+                    <div class="column is-12 content" v-if="char.lifepath.events.length > 0">
+                      <dl>
+                        <dt v-for="(e, i) in char.lifepath.events">
+                          <strong> {{i+16}}: </strong> {{ decodeRollTree('lifePath', e, ' - ') }}
+                        </dt>
+                      </dl>
+                    </div>
+                  </div>
+                  <div class="columns is-gapless is-multiline">
+                    <div class="column is-1 blackBox"><span>Story</span></div>
+                    <div class="column is-11"></div>
+                    <div class="column is-12">
+                      <textarea class="entryField" v-model="char.story"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div> <!-- box -->
       </div>
     </section>
   </div>
 </template>
 
+
 <script>
   import options from './options.js';
   import spinner from './spinner.vue';
   import LZString from 'lz-string';
   import { saveAs } from 'file-saver';
-
+  
   export default {
     name: 'app',
     components: { 'spinner' : spinner },
@@ -457,10 +625,13 @@
           'Style',
           'Family',
           'Motivation',
-          'Lifepath'
+          'Lifepath',
+          'Character sheet'
         ],
-        page: 0,
+        page: 6,
         char: {
+          handle: '',
+          story: '',
           role: undefined,
           characterPoints: 60,
           stats: {
@@ -770,6 +941,7 @@
       },
       importCharacter(event) {
         var file = event.target.files[0];
+        console.log(file);
         var reader = new FileReader();
         self = this;
         reader.addEventListener('loadend', function() {
@@ -794,6 +966,13 @@
         var fn = prompt('File name:', 'character.txt');
         if (fn === null) return;
         saveAs(blob, fn);
+      },
+      siblingGenderCount: function(gender) {
+        if(this.char.siblings.length > 0)
+          return this.char.siblings.reduce(function(sum, value) {
+            return sum + (value[1] == gender ? 1 : 0);
+          }, 0)
+        return 0;
       }
     }
   }
