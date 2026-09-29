@@ -1,11 +1,17 @@
 {
   "name": "cloning-vat",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Cyberpunk 2020 Character Generator",
-  "main": "index.js",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "start": "node index",
-    "build": "node ./node_modules/rollup/bin/rollup -c -w"
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "coverage": "vitest run --coverage",
+    "typecheck": "vue-tsc -b --noEmit"
   },
   "repository": {
     "type": "git",
@@ -13,42 +19,29 @@
   },
   "keywords": [
     "Cyberpunk 2020",
-    "vue.js",
-    "mini.css",
-    "gulp"
+    "vue",
+    "vuetify",
+    "vite"
   ],
   "author": "vizmi",
   "license": "ISC",
-  "devDependencies": {
-    "browser-sync": "^2.18.13",
-    "bulma": "^0.5.1",
-    "chokidar": "^1.7.0",
-    "cssnano": "^3.10.0",
-    "file-saver": "^1.3.3",
-    "font-awesome": "^4.7.0",
-    "lz-string": "^1.4.4",
-    "npm-run-all": "^4.1.1",
-    "postcss-url": "^7.1.2",
-    "rollup": "^0.49.3",
-    "rollup-plugin-browsersync": "^0.2.4",
-    "rollup-plugin-commonjs": "^8.2.1",
-    "rollup-plugin-copy": "^0.2.3",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-postcss": "^0.5.5",
-    "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^2.0.1",
-    "rollup-plugin-vue": "^2.4.2",
-    "uglify-es": "^3.1.0",
-    "vue": "^2.4.2"
-  },
   "dependencies": {
-    "compression": "^1.7.0",
-    "connect": "^3.6.3",
-    "errorhandler": "^1.5.0",
-    "http": "0.0.0",
-    "morgan": "^1.8.2",
-    "path": "^0.12.7",
-    "serve-favicon": "^2.4.3",
-    "serve-static": "^1.12.4"
+    "@mdi/font": "^7.4.47",
+    "file-saver": "^2.0.5",
+    "lz-string": "^1.5.0",
+    "vue": "^3.5.43",
+    "vuetify": "^4.2.2"
+  },
+  "devDependencies": {
+    "@types/file-saver": "^2.0.7",
+    "@types/node": "^26.6.3",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "@vue/test-utils": "^2.5.1",
+    "jsdom": "^30.1.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.3.1",
+    "vite-plugin-vuetify": "^2.1.3",
+    "vitest": "^5.0.2",
+    "vue-tsc": "^3.3.11"
   }
 }

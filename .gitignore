@@ -3,3 +3,5 @@ npm-debug.log
 coverage
 *.sublime-workspace
 ~*
+dist/
+*.tsbuildinfo
