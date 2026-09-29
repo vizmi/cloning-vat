@@ -9,7 +9,7 @@
       <v-col cols="12" md="6">
         <v-row no-gutters>
           <v-col cols="4" class="blackBack" />
-          <v-col cols="4" class="centered blackBack"><img src="/CyberPunk.gif" alt="Cyberpunk" /></v-col>
+          <v-col cols="4" class="centered blackBack"><img :src="cyberPunkGifUrl" alt="Cyberpunk" /></v-col>
           <v-col cols="4" class="blackBack" />
         </v-row>
         <CharSheetMotivation />
@@ -43,4 +43,6 @@ import CharSheetFamily from '../charsheet/CharSheetFamily.vue'
 import CharSheetSiblings from '../charsheet/CharSheetSiblings.vue'
 import CharSheetLifeEvents from '../charsheet/CharSheetLifeEvents.vue'
 import CharSheetStory from '../charsheet/CharSheetStory.vue'
+
+const cyberPunkGifUrl = `${import.meta.env.BASE_URL}CyberPunk.gif`
 </script>
